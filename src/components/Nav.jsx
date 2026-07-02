@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useNav from '../hooks/useNav';
 
-// href on the live site -> route path, so the active link can be highlighted
 const NAV_LINKS = [
   { key: 'investors', label: 'For investors', href: '/investors' },
-  { key: 'mandates', label: 'Mandates', href: 'DoneDeal-Mandates.html' },
-  { key: 'faq', label: 'FAQ', href: 'DoneDeal-FAQ.html' },
-  { key: 'blog', label: 'Blog', href: 'DoneDeal-Blog.html' },
-  { key: 'about', label: 'About', href: 'DoneDeal-About.html' },
+  { key: 'mandates', label: 'Mandates', href: '/mandates' },
+  { key: 'faq', label: 'FAQ', href: '/faq' },
+  { key: 'blog', label: 'Blog', href: '/blog' },
+  { key: 'about', label: 'About', href: '/about' },
 ];
 
 const brandLogoClass = 'brand-logo h-[26px] w-auto [body.is-light_&]:invert';
@@ -39,7 +38,7 @@ export default function Nav({ current }) {
         id="topnav"
         ref={headerRef}
       >
-        <a className="inline-flex items-center no-underline" href="DoneDeal-Homepage.html" aria-label="Done Deal home">
+        <a className="inline-flex items-center no-underline" href="/" aria-label="Done Deal home">
           <img className={brandLogoClass} src="/assets/06a40a90a90f.svg" alt="done.deals" />
         </a>
 
@@ -83,7 +82,7 @@ export default function Nav({ current }) {
         aria-hidden={!mobileOpen}
       >
         <div className="absolute inset-x-0 top-0 flex h-[72px] items-center justify-between px-5">
-          <a className="inline-flex items-center" href="DoneDeal-Homepage.html" onClick={closeMobile} aria-label="Done Deal home">
+          <a className="inline-flex items-center" href="/" onClick={closeMobile} aria-label="Done Deal home">
             <img className={brandLogoClass} src="/assets/06a40a90a90f.svg" alt="done.deals" />
           </a>
           <button

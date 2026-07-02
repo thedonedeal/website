@@ -1,16 +1,81 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
+import { POSTS } from '../data/posts';
 import '../styles/blog.css';
+
+const blogFiles = import.meta.glob('../blogs/*.html', { query: '?raw', import: 'default' });
+
+const CalendarIcon = () => (
+  <svg viewBox="0 0 24 24">
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="12 7 12 12 15 14" />
+  </svg>
+);
+
+function NavCard({ post, dir }) {
+  return (
+    <Link
+      to={`/blog/${post.slug}`}
+      className={`art-navcard${dir === 'next' ? ' next' : ''}`}
+    >
+      <span className="nav-dir">{dir === 'next' ? 'Next →' : '← Previous'}</span>
+      <span className="nav-title">{post.title}</span>
+      <span className="nav-tag">{post.tag} · {post.readTime}</span>
+    </Link>
+  );
+}
 
 export default function BlogPost() {
   useReveal();
   useParallax();
   useLightwell();
+
+  const { slug } = useParams();
+  const idx = POSTS.findIndex(p => p.slug === slug);
+  const post = POSTS[idx];
+  const prev = idx > 0 ? POSTS[idx - 1] : null;
+  const next = idx < POSTS.length - 1 ? POSTS[idx + 1] : null;
+
+  const [bodyHtml, setBodyHtml] = useState(null);
+
+  useEffect(() => {
+    if (!post) return;
+    const loader = blogFiles[`../blogs/${post.slug}.html`];
+    if (loader) {
+      loader().then(html => setBodyHtml(html));
+    } else {
+      setBodyHtml(null);
+    }
+  }, [post]);
+
+  if (!post) {
+    return (
+      <>
+        <Nav current="blog" />
+        <main id="top" style={{ paddingTop: 'clamp(116px,15vh,168px)', textAlign: 'center', color: 'var(--bone)' }}>
+          <h1 style={{ fontSize: 'clamp(24px,3vw,36px)' }}>Post not found</h1>
+          <Link to="/blog" className="art-back" style={{ display: 'inline-block', marginTop: 20 }}>
+            ← Back to blog
+          </Link>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -21,11 +86,9 @@ export default function BlogPost() {
           {/* ── Article hero ────────────────────────────────────────── */}
           <section className="relative" style={{ paddingTop: 'clamp(116px,15vh,168px)' }}>
 
-            {/* Ambient decorative layer */}
             <div className="amb">
               <div
                 className="glow p absolute"
-                id="artOrbA"
                 style={{ width: 480, height: 420, left: '50%', top: '-14%', transform: 'translateX(-50%)', opacity: 0.32 }}
               />
               <div
@@ -42,7 +105,7 @@ export default function BlogPost() {
             <div className="wrap">
               <div className="reveal max-w-[1000px] mx-auto">
 
-                {/* Top bar: back link + category eyebrow */}
+                {/* Back link + category eyebrow */}
                 <div className="flex items-center justify-between gap-4">
                   <Link
                     to="/blog"
@@ -58,31 +121,44 @@ export default function BlogPost() {
                     </svg>
                     Back to blog
                   </Link>
-                  <div
-                    id="artEyebrow"
-                    className="art-eyebrow inline-flex items-center gap-[9px] m-0 text-[11px] font-semibold tracking-[0.14em] uppercase"
-                  />
+                  <div className={`art-eyebrow ${post.cat} inline-flex items-center gap-[9px] m-0 text-[11px] font-semibold tracking-[0.14em] uppercase`}>
+                    {post.tag}
+                  </div>
                 </div>
 
                 {/* Title */}
                 <h1
-                  id="artTitle"
                   className="font-medium leading-[1.05] mt-[26px] [text-wrap:balance]"
                   style={{ fontSize: 'clamp(30px,4.2vw,52px)', letterSpacing: '-0.035em', color: 'var(--bone)' }}
                 >
-                  Loading…
+                  {post.title}
                 </h1>
 
-                {/* Author / date / read-time — injected by data loader */}
+                {/* Meta */}
                 <div
-                  id="artMeta"
                   className="art-meta flex items-center gap-[14px] mt-6 text-[13.5px]"
                   style={{ color: 'var(--bone-faint)' }}
-                />
+                >
+                  <span className="mi"><CalendarIcon />{post.date}</span>
+                  <span className="sep" />
+                  <span className="mi"><ClockIcon />{post.readTime}</span>
+                </div>
               </div>
 
-              {/* Cover image — injected by data loader */}
-              <div id="artCover" className="art-cover reveal max-w-[1000px] mx-auto mt-11" />
+              {/* Cover */}
+              <div className="art-cover reveal max-w-[1000px] mx-auto mt-11">
+                <div className={`cover ${post.cover}`}>
+                  <div className="cov-grid" />
+                  <div
+                    className="cov-orb"
+                    style={{ width: 480, height: 420, left: '50%', top: '-14%', transform: 'translateX(-50%)', opacity: 0.5 }}
+                  />
+                  <span className="cov-tag">{post.tag}</span>
+                  <div className="cov-ic">
+                    <svg viewBox="0 0 24 24">{post.icon}</svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -90,8 +166,12 @@ export default function BlogPost() {
           <section className="section-pad" style={{ paddingTop: 'clamp(40px,5vh,64px)' }}>
             <div className="wrap">
 
-              {/* Rich text — injected by data loader */}
-              <div id="artBody" className="art-body max-w-[720px] mx-auto" />
+              <div className="art-body max-w-[720px] mx-auto">
+                {bodyHtml
+                  ? <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+                  : <p className="lead">{post.excerpt}</p>
+                }
+              </div>
 
               {/* CTA card */}
               <div
@@ -115,31 +195,32 @@ export default function BlogPost() {
                   <a className="btn btn-primary" href="https://app.done.deals/valuation-calculator">
                     Get your valuation
                   </a>
-                  <a className="link" href="DoneDeal-Mandates.html">
+                  <Link className="link" to="/mandates">
                     Browse live mandates <span className="arrow">→</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
           </section>
 
           {/* ── Prev / next ──────────────────────────────────────────── */}
-          <section
-            className="section-pad max-sm:!pt-[10px] max-sm:!pb-7"
-            style={{ paddingTop: 'clamp(20px,3vh,40px)' }}
-          >
-            <div className="wrap">
-              <div className="eyebrow-row reveal max-sm:!mb-[14px]">
-                <span className="kicker">Keep reading</span>
-                <span className="ln" />
+          {(prev || next) && (
+            <section
+              className="section-pad max-sm:!pt-[10px] max-sm:!pb-7"
+              style={{ paddingTop: 'clamp(20px,3vh,40px)' }}
+            >
+              <div className="wrap">
+                <div className="eyebrow-row reveal max-sm:!mb-[14px]">
+                  <span className="kicker">Keep reading</span>
+                  <span className="ln" />
+                </div>
+                <div className="reveal max-w-[1000px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-[22px]">
+                  {prev && <NavCard post={prev} dir="prev" />}
+                  {next && <NavCard post={next} dir="next" />}
+                </div>
               </div>
-              {/* Prev/next cards — injected by data loader */}
-              <div
-                id="artNav"
-                className="reveal max-w-[1000px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-[22px]"
-              />
-            </div>
-          </section>
+            </section>
+          )}
 
         </article>
       </main>
