@@ -40,7 +40,7 @@ export default function Investors() {
             <div className="match-viz-wrap">
               <canvas id="match-viz" aria-hidden="true" />
             </div>
-            <div className="hero-grid" style={{ "gridTemplateColumns": "1fr" }}>
+            <div className="hero-grid !mt-8" style={{ "gridTemplateColumns": "1fr" }}>
               <div className="hero-text reveal" style={{ "maxWidth": "820px" }}>
                 <div className="kicker">
                   <span className="live-dot" />
@@ -84,7 +84,7 @@ export default function Investors() {
                 </div>
               </div>
             </div>
-            <div className="hero-trust reveal mt-36">
+            <div className="hero-trust reveal mt-20">
               <span>
                 <i className="trust-check">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">

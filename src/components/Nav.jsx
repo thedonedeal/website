@@ -3,10 +3,11 @@ import useNav from '../hooks/useNav';
 
 // href on the live site -> route path, so the active link can be highlighted
 const NAV_LINKS = [
-  { key: 'investors', label: 'For investors', href: 'DoneDeal-Investors.html' },
+  { key: 'investors', label: 'For investors', href: '/investors' },
   { key: 'mandates', label: 'Mandates', href: 'DoneDeal-Mandates.html' },
   { key: 'faq', label: 'FAQ', href: 'DoneDeal-FAQ.html' },
   { key: 'blog', label: 'Blog', href: 'DoneDeal-Blog.html' },
+  { key: 'about', label: 'About', href: 'DoneDeal-About.html' },
 ];
 
 const brandLogoClass = 'brand-logo h-[26px] w-auto [body.is-light_&]:invert';
