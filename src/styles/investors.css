@@ -229,7 +229,7 @@ body.page-investors #bgwash::before { content: ""; position: absolute; inset: 0;
    ════════════════════════════════════════════════════════════ */
 
 /* Hero — nav + hero = one full screen, content centered */
-.hero { min-height: 100svh;
+.hero { min-height: 90svh;
   padding: calc(var(--nav-h, 66px) + 4px) var(--gutter) clamp(20px,3vh,40px);
   display: flex; flex-direction: column; justify-content: center; }
 
@@ -272,6 +272,15 @@ body.page-investors .hero-trust span { color: rgba(19,17,25,0.62); }
   display: block;
   width: 100%;
   height: 100%;
+}
+
+@media (min-width: 1600px) {
+  .match-viz-wrap {
+    right: 6%;
+    top: 13%;
+    bottom: 14%;
+    width: 40%;
+  }
 }
 
 .hero-trust .tl { display: inline; }
@@ -632,3 +641,32 @@ body.page-investors .hero-trust span { color: rgba(19,17,25,0.62); }
 }
 
 @media (max-width:800px){ .h-sec, .proc2-h, .ready-l h2, section.fees > h2 { font-size: clamp(32px, 8vw, 48px) !important; } .hero-h1, .hero h1 { font-size: clamp(40px, 10vw, 52px) !important; } .hero-h1 .bm{ display:inline !important; } .hero-h1 .bd{ display:none !important; } .hero-h1 .hero-line2, .hero-line2 { white-space: normal !important; } .hero-text { min-width: 0 !important; max-width: 100% !important; } .sc-head h3 { font-size: clamp(24px, 6vw, 30px) !important; } .hero .kicker{ display:block !important; line-height:1.55 !important; font-size:11px !important; letter-spacing:0.1em !important; } .hero .kicker .kick-main{ white-space:nowrap; display:inline-block; } .hero .kicker .live-dot{ vertical-align:middle; display:inline-block; } .hero .kicker .kick-sep{ display:none !important; } .hero .kicker .kick-geo{ display:block; margin-top:3px; } .cta-row{ flex-direction:column !important; align-items:stretch !important; gap:14px !important; } .cta-row .btn-primary{ width:100% !important; justify-content:center !important; text-align:center; } .cta-row .link{ align-self:center !important; justify-content:center !important; text-align:center; } .hero-trust{ flex-direction:column !important; align-items:flex-start !important; justify-content:flex-start !important; gap:14px !important; } .hero-trust span{ white-space:normal !important; } .duo .panel, .panel{ padding: 24px 20px !important; } .press-strip .press-row{ flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; gap:14px !important; } .press-marquee{ width:100% !important; } .faq-a-inner{ padding-right:0 !important; } }
+
+@media (max-width: 480px) {
+  body.page-investors .hero {
+    min-height: auto !important;
+    padding-top: calc(var(--nav-h, 66px) + 14px) !important;
+  }
+
+  body.page-investors .hero .hero-panel {
+    min-height: auto !important;
+  }
+
+  body.page-investors .hero-h1,
+  body.page-investors .hero h1 {
+    font-size: clamp(32px, 10vw, 40px) !important;
+    line-height: 1.06 !important;
+  }
+
+  body.page-investors .hero .kicker .kick-main {
+    white-space: normal !important;
+  }
+
+  body.page-investors .track-grid,
+  body.page-investors .track-grid2,
+  body.page-investors .uni-grid,
+  body.page-investors .inv-grid,
+  body.page-investors .sc-fees {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -251,6 +251,20 @@
   margin: 0 auto;
 }
 
+@media (min-width: 1600px) {
+  .cf-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.88fr);
+  }
+
+  .cf-left {
+    max-width: 620px;
+  }
+
+  .india-map {
+    max-width: 460px;
+  }
+}
+
 @media (max-width: 880px) {
   .cf-grid {
     grid-template-columns: 1fr;

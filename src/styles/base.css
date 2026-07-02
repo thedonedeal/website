@@ -233,6 +233,25 @@
 
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
 /* ── Lenis smooth scroll (the engine behind Locomotive v5) ───── */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
@@ -253,6 +272,19 @@ body {
   font-size: 17px;
   line-height: 1.6;
   letter-spacing: -0.005em;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --gutter: clamp(72px, 6vw, 144px);
+    --maxw: 1440px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --maxw: 1520px;
+  }
 }
 
 /* ── Type primitives ─────────────────────────────────────────── */

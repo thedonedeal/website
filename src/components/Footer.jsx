@@ -73,8 +73,8 @@ export default function Footer({ theme = 'dark' }) {
   return (
     <footer className={footerClass} data-screen-label="Footer">
       <div className="relative z-[1] mx-auto w-full max-w-[var(--maxw)] px-[var(--gutter)]">
-        <div className={`grid grid-cols-2 items-start gap-x-6 gap-y-8 border-b pb-10 pt-2 md:grid-cols-[1fr_auto_auto_auto_auto] md:gap-x-[52px] md:gap-y-10 md:pb-[60px]${light ? ' border-[var(--line-ink)]' : ' border-[var(--line)]'}`}>
-          <div className="col-span-2 md:col-span-1">
+        <div className={`footer-grid grid grid-cols-2 items-start gap-x-6 gap-y-8 border-b pb-10 pt-2 md:grid-cols-[1fr_auto_auto_auto_auto] md:gap-x-[52px] md:gap-y-10 md:pb-[60px]${light ? ' border-[var(--line-ink)]' : ' border-[var(--line)]'}`}>
+          <div className="footer-brand-block col-span-2 md:col-span-1">
             <a className="mb-5 inline-flex items-center no-underline" href="DoneDeal-Homepage.html" aria-label="Done Deal home">
               <img className={logoClass} src="/assets/06a40a90a90f.svg" alt="done.deals" />
             </a>
