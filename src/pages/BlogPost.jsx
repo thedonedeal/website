@@ -174,7 +174,7 @@ export default function BlogPost() {
               </div>
 
               {/* CTA card */}
-              <div
+              {/* <div
                 className="reveal max-w-[720px] mx-auto mt-14 border rounded-[20px] text-center"
                 style={{
                   borderColor: 'var(--line)',
@@ -199,7 +199,7 @@ export default function BlogPost() {
                     Browse live mandates <span className="arrow">→</span>
                   </Link>
                 </div>
-              </div>
+              </div> */}
             </div>
           </section>
 
