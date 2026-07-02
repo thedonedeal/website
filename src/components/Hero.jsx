@@ -97,16 +97,18 @@ export default function Hero() {
                     className={`viz-card${k === 0 ? ' on' : ''}`}
                     data-m={c.m}
                     key={c.m}
-                    style={{ justifyContent: 'space-between' }}
+                    aria-pressed={k === 0}
                   >
-                    <span className="n">{c.n}</span>
-                    <span className="t">
-                      {c.t[0]}
-                      <em>{c.t[1]}</em>
-                    </span>
-                    <span className="s">{c.s}</span>
                     <span className="bar">
                       <i />
+                    </span>
+                    <span className="n">{c.n}</span>
+                    <span className="viz-body">
+                      <span className="t">
+                        {c.t[0]}
+                        <em>{c.t[1]}</em>
+                      </span>
+                      <span className="s">{c.s}</span>
                     </span>
                   </button>
                 ))}

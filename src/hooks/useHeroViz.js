@@ -129,9 +129,14 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
     function setMode(m) {
       mode = ((m % 4) + 4) % 4;
       elapsed = 0;
-      cards.forEach((b, k) => b.classList.toggle('on', k === mode));
+      cards.forEach((b, k) => {
+        const active = k === mode;
+        b.classList.toggle('on', active);
+        b.classList.toggle('vshow', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
       fills.forEach((f, k) => {
-        if (f) f.style.width = k < mode ? '100%' : '0%';
+        if (f) f.style.height = k < mode ? '100%' : '0%';
       });
     }
 
@@ -352,7 +357,7 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
       if (!reduce && !paused) {
         elapsed += dt;
         if (elapsed >= DWELL) setMode(mode + 1);
-        else if (fills[mode]) fills[mode].style.width = `${(elapsed / DWELL) * 100}%`;
+        else if (fills[mode]) fills[mode].style.height = `${(elapsed / DWELL) * 100}%`;
       }
       sx += (mx - sx) * 0.14;
       sy += (my - sy) * 0.14;
