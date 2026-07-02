@@ -85,14 +85,14 @@ const TEAM_GROUPS = [
   {
     label: "Engineers",
     members: [
-      { initials: "PT", name: "Paras Thapa", role: "Product Designer" },
+      { initials: "PT", name: "Paras Thappa", role: "Product Designer" },
       { initials: "PS", name: "Pratik Singh", role: "Software Engineer" },
-      { initials: "AB", name: "Abhijeet Gautam", role: "Software Engineer" },
+      { initials: "AG", name: "Abhijeet Gautam", role: "Software Engineer" },
       { initials: "AP", name: "Anand Prakash", role: "Software Engineer" },
       { initials: "NS", name: "Navneet Singh", role: "Software Engineer" },
-      { initials: "AA", name: "Anubhav Aaryan", role: "Backend Engineer" },
+      { initials: "AA", name: "Anubhav Aaryan", role: "Software Engineer" },
       { initials: "AC", name: "Ashutosh Chandra", role: "Product Manager" },
-      { initials: "KR", name: "Karunanidhi Rajput", role: "Product Analyst" },
+      { initials: "KR", name: "Karunanidhi Rajpoot", role: "Product Analyst" },
     ],
   },
 ];
