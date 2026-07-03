@@ -31,7 +31,7 @@ export default function Hero() {
     const el = rotorRef.current;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const words = ['M&A', 'Fundraising'];
+    const words = ['M&A,', 'Fundraising,'];
     let i = 0;
     const id = setInterval(() => {
       el.classList.add('out');
@@ -63,10 +63,10 @@ export default function Hero() {
             <h1 className="h-display hero-h1">
               <span className="rotor-wrap">
                 <span className="rotor" id="rotor" ref={rotorRef}>
-                  Fundraising
+                  Fundraising,
                 </span>
               </span>
-              ,<br />
+              <br />
               <span className="hero-line2">
                 <span className="accent-i">rebuilt</span> for founders.
               </span>
