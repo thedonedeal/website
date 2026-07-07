@@ -16,6 +16,14 @@
  * Usage:  import About from "./About";  … <About />
  */
 import React, { useState, useEffect, useRef } from "react";
+import photoParas from "../assets/paras.svg";
+import photoPratik from "../assets/pratik.svg";
+import photoAnand from "../assets/anand.svg";
+import photoChandan from "../assets/chadan.svg";
+import photoNavneet from "../assets/navneet.svg";
+import photoAnubhav from "../assets/anubhav.svg";
+import photoAshutosh from "../assets/ashutosh.svg";
+import photoAbhijeet from "../assets/abhijeet.svg";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -85,15 +93,15 @@ const TEAM_GROUPS = [
   {
     label: "Engineers",
     members: [
-      { initials: "PT", name: "Paras Thappa", role: "Product Designer" },
-      { initials: "PS", name: "Pratik Singh", role: "Software Engineer" },
-      { initials: "AG", name: "Abhijeet Gautam", role: "Software Engineer" },
-      { initials: "AP", name: "Anand Prakash", role: "Software Tester" },
-      { initials: "CK", name: "Chandan Kumar", role: "Software Tester" },
-      { initials: "NS", name: "Navneet Singh", role: "Software Engineer" },
-      { initials: "AA", name: "Anubhav Aaryan", role: "Software Engineer" },
-      { initials: "AC", name: "Ashutosh Chandra", role: "Product Manager" },
-      { initials: "KR", name: "Karunanidhi Rajpoot", role: "Product Analyst" },
+      { initials: "PT", name: "Paras Thappa", role: "Product Designer", photo: photoParas },
+      { initials: "PS", name: "Pratik Singh", role: "Software Engineer", photo: photoPratik },
+      { initials: "AG", name: "Abhijeet Gautam", role: "Software Engineer", photo: photoAbhijeet },
+      { initials: "AP", name: "Anand Prakash", role: "Software Tester", photo: photoAnand },
+      { initials: "CK", name: "Chandan Kumar", role: "Software Tester", photo: photoChandan },
+      { initials: "NS", name: "Navneet Singh", role: "Software Engineer", photo: photoNavneet },
+      { initials: "AA", name: "Anubhav Aaryan", role: "Software Engineer", photo: photoAnubhav },
+      { initials: "AC", name: "Ashutosh Chandra", role: "Product Manager", photo: photoAshutosh },
+      // { initials: "KR", name: "Karunanidhi Rajpoot", role: "Product Analyst" },
     ],
   },
 ];
@@ -965,7 +973,11 @@ export default function About() {
                   {group.members.map((m, mi) => (
                     <div key={`${m.name}-${mi}`} className="text-center">
                       <div className="relative w-[128px] h-[128px] rounded-full mx-auto mb-[18px] grid place-items-center overflow-hidden font-['Instrument_Serif',Georgia,serif] italic text-[42px] text-[#ECE9E2] border border-[rgba(236,233,226,0.22)] bg-[radial-gradient(120%_120%_at_30%_20%,rgba(124,138,255,0.30),rgba(92,111,255,0.08)_60%,rgba(236,233,226,0.03))] shadow-[0_8px_30px_rgba(92,111,255,0.18)]">
-                        {m.initials}
+                        {m.photo ? (
+                          <img src={m.photo} alt={m.name} className="w-full h-full object-cover" />
+                        ) : (
+                          m.initials
+                        )}
                       </div>
                       <div className="inline-flex items-center gap-[8px] font-semibold text-[17px] tracking-[-0.01em] text-[#ECE9E2]">
                         {m.name}
