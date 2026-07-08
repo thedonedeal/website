@@ -1,32 +1,42 @@
 import React from 'react';
+import imgTestimonialAjith from '../assets/testimonial/testimonial-ajith.svg';
 
 const TESTIMONIALS = [
+  // {
+  //   name: 'Anuj Verma',
+  //   role: 'Founder, TTT',
+  //   attribution: 'Founder & CEO, TTT — acquired by Collective Artists Network',
+  //   portraitSrc: 'assets/ph-portrait.png',
+  //   quotePre: "I'd braced for a year of pain. Instead I had a banker who knew my market, a model that knew my number, and ",
+  //   quoteEm: 'four offers in eleven weeks.',
+  //   quotePost: ' It felt less like selling software and more like having a partner.',
+  // },
+  // {
+  //   name: 'Priya Nair',
+  //   role: 'Co-founder, Loophealth',
+  //   attribution: 'Co-founder, Loophealth — acquired by a US healthcare group',
+  //   portraitSrc: 'assets/ph-head-3.png',
+  //   quotePre: 'Three banks told me my category was "too early." Done Deal found ',
+  //   quoteEm: 'nineteen strategic buyers',
+  //   quotePost: ' who disagreed — and ran a process so tight I never lost a week to chasing paperwork.',
+  // },
+  // {
+  //   name: 'Marcus Hale',
+  //   role: 'CEO, Fernweh Labs',
+  //   attribution: 'CEO, Fernweh Labs — acquired by a European platform',
+  //   portraitSrc: 'assets/ph-head-5.png',
+  //   quotePre: 'The valuation model was the unlock. I walked into every conversation knowing my floor, my ceiling, and exactly which buyer would pay it. We ',
+  //   quoteEm: 'closed 23% above my own estimate.',
+  //   quotePost: '',
+  // },
   {
-    name: 'Anuj Verma',
-    role: 'Founder, TTT',
-    attribution: 'Founder & CEO, TTT — acquired by Collective Artists Network',
-    portraitSrc: 'assets/ph-portrait.png',
-    quotePre: "I'd braced for a year of pain. Instead I had a banker who knew my market, a model that knew my number, and ",
-    quoteEm: 'four offers in eleven weeks.',
-    quotePost: ' It felt less like selling software and more like having a partner.',
-  },
-  {
-    name: 'Priya Nair',
-    role: 'Co-founder, Loophealth',
-    attribution: 'Co-founder, Loophealth — acquired by a US healthcare group',
-    portraitSrc: 'assets/ph-head-3.png',
-    quotePre: 'Three banks told me my category was "too early." Done Deal found ',
-    quoteEm: 'nineteen strategic buyers',
-    quotePost: ' who disagreed — and ran a process so tight I never lost a week to chasing paperwork.',
-  },
-  {
-    name: 'Marcus Hale',
-    role: 'CEO, Fernweh Labs',
-    attribution: 'CEO, Fernweh Labs — acquired by a European platform',
-    portraitSrc: 'assets/ph-head-5.png',
-    quotePre: 'The valuation model was the unlock. I walked into every conversation knowing my floor, my ceiling, and exactly which buyer would pay it. We ',
-    quoteEm: 'closed 23% above my own estimate.',
-    quotePost: '',
+    name: 'Ajith',
+    role: 'Co-Founder, Forthcode',
+    attribution: 'Co-Founder, Forthcode',
+    portraitSrc: imgTestimonialAjith,
+    quotePre: 'We partnered with DoneDeal to support our fundraising efforts, and the experience was exceptional. Done Deal was instrumental in connecting us with high-quality leads and key decision-makers across ',
+    quoteEm: '7 different investment firms',
+    quotePost: ", all of whom were genuinely relevant to our sector. The level of access and professionalism they provided was top-tier. They don't just facilitate introductions; they facilitate meaningful conversations. I highly recommend DoneDeal to any founder looking for a structured and efficient fundraising support system.",
   },
 ];
 

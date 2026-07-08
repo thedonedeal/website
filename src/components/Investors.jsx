@@ -1,11 +1,16 @@
 import React from 'react';
+import logoGruhas from '../assets/investors/gruhas.svg';
+import logoWfc from '../assets/investors/wfc.svg';
+import logoBarbershop from '../assets/investors/barbershop.svg';
+import logoDezerv from '../assets/investors/dezerv.svg';
+import logoCapitalA from '../assets/investors/capitalA.svg';
 
 const INVESTOR_LOGOS = [
-  { src: '/assets/bd0dbe67fa07.svg', alt: 'Gruhas' },
-  { src: '/assets/89ed8fe4345e.svg', alt: 'Raisers Edge' },
-  { src: '/assets/dee43c50557c.svg', alt: 'Capital A' },
-  { src: '/assets/a7b1288648d7.svg', alt: 'We Founder Circle' },
-  { src: '/assets/e240ef249bd2.svg', alt: 'Dezerv Innovation Fund' },
+  { src: logoGruhas, alt: 'Gruhas' },
+  { src: logoBarbershop, alt: 'The Barbershop' },
+  { src: logoCapitalA, alt: 'Capital A' },
+  { src: logoWfc, alt: 'We Founder Circle' },
+  { src: logoDezerv, alt: 'Dezerv Innovation Fund' },
 ];
 
 export default function Investors() {
