@@ -29,6 +29,14 @@ import photoVinit from "../assets/bankers/vinit.svg";
 import photoDeepty from "../assets/bankers/deepty.svg";
 import photoDhrish from "../assets/bankers/dhirish.svg";
 import photoSagar from "../assets/bankers/sagar_parekh.svg";
+import photoRohit from "../assets/founders/rohit.svg";
+import photoAneesh from "../assets/founders/annesh.svg";
+import photoFoundersGroup from "../assets/founders/founders.png";
+import logoGruhas from "../assets/investors/gruhas.svg";
+import logoWfc from "../assets/investors/wfc.svg";
+import logoBarbershop from "../assets/investors/barbershop.svg";
+import logoDezerv from "../assets/investors/dezerv.svg";
+import logoCapitalA from "../assets/investors/capitalA.svg";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -66,15 +74,21 @@ const VALUES = [
   { n: "05", title: "Compound Everything", body: "Every deal makes the next one better. Every data point sharpens buyer matching; every relationship deepens the network. We're building a system, not a series of transactions." },
 ];
 
-const INVESTORS = ["Lead investor", "Fund", "Fund", "Angel syndicate", "Family office", "Micro VC"];
+const INVESTOR_LOGOS = [
+  { src: logoGruhas, alt: "Gruhas" },
+  { src: logoBarbershop, alt: "The Barbershop" },
+  { src: logoCapitalA, alt: "Capital A" },
+  { src: logoWfc, alt: "We Founder Circle" },
+  { src: logoDezerv, alt: "Dezerv Innovation Fund" },
+];
 
 const TEAM_GROUPS = [
   {
     label: "Core Team",
     members: [
-      { initials: "RR", name: "Rohit Raj", role: "Co-Founder" },
+      { initials: "RR", name: "Rohit Raj", role: "Co-Founder", photo: photoRohit, linkedin_url: "https://www.linkedin.com/in/rohitrajkaral/"},
       { initials: "AJ", name: "Ankur Jain", role: "Co-Founder" },
-      { initials: "AS", name: "Aneesh Sivakumar", role: "Co-Founder" },
+      { initials: "AS", name: "Aneesh Sivakumar", role: "Co-Founder", photo: photoAneesh, linkedin_url: "https://www.linkedin.com/in/aneesh-sivakumar/" },
     ],
   },
   {
@@ -834,8 +848,11 @@ export default function About() {
           <div className="max-w-[1320px] mx-auto px-[clamp(24px,6.5vw,120px)] relative z-[1]">
             <div className="grid grid-cols-[0.82fr_1fr] gap-[clamp(36px,4.5vw,76px)] items-start max-w-[1180px] mx-auto max-[900px]:grid-cols-1 max-[900px]:gap-[36px]">
               <Reveal className="sticky top-[96px] max-[900px]:static">
-                <MediaPlaceholder label="Founding team photo" className="h-[clamp(300px,32vw,430px)]" />
-                <div className="mt-[14px] text-[12px] tracking-[0.06em] text-[rgba(236,233,226,0.62)]">The founding team · Mumbai / Bengaluru</div>
+                <img
+                  src={photoFoundersGroup}
+                  alt="The founding team"
+                  className="w-full h-[clamp(300px,32vw,430px)] object-cover rounded-[24px] border border-[rgba(236,233,226,0.12)]"
+                />
               </Reveal>
 
               <div>
@@ -931,14 +948,16 @@ export default function About() {
             }}
           >
             <div className="dd-marquee-track flex items-center whitespace-nowrap will-change-transform" style={{ animation: "dd-marquee 34s linear infinite" }}>
-              {[...INVESTORS, ...INVESTORS].map((label, i) => (
-                <span
-                  key={i}
-                  aria-hidden={i >= INVESTORS.length ? "true" : undefined}
-                  className="shrink-0 mr-[18px] inline-flex items-center justify-center h-[80px] min-w-[210px] px-[30px] rounded-[16px] border border-[rgba(236,233,226,0.12)] bg-[rgba(236,233,226,0.02)] font-mono text-[13px] tracking-[0.04em] text-[rgba(236,233,226,0.40)]"
-                >
-                  [ {label} ]
-                </span>
+              {[...INVESTOR_LOGOS, ...INVESTOR_LOGOS].map((logo, i) => (
+                <img
+                  key={`${logo.src}-${i}`}
+                  src={logo.src}
+                  alt={i >= INVESTOR_LOGOS.length ? "" : logo.alt}
+                  aria-hidden={i >= INVESTOR_LOGOS.length ? "true" : undefined}
+                  draggable="false"
+                  className="h-[30px] w-auto shrink-0 opacity-[0.55] select-none transition-opacity duration-300 hover:opacity-[0.92]"
+                  style={{ marginRight: "clamp(56px, 7vw, 110px)", filter: "brightness(0) invert(1)" }}
+                />
               ))}
             </div>
           </Reveal>
@@ -966,9 +985,9 @@ export default function About() {
                 <div className="text-center mb-[34px]">
                   <Kicker center>{group.label}</Kicker>
                 </div>
-                <div className="grid grid-cols-4 gap-[28px] max-[900px]:grid-cols-2 max-[900px]:gap-y-[32px] max-[900px]:gap-x-[22px]">
+                <div className="flex flex-wrap justify-center gap-[28px] max-[900px]:gap-y-[32px] max-[900px]:gap-x-[22px]">
                   {group.members.map((m, mi) => (
-                    <div key={`${m.name}-${mi}`} className="text-center">
+                    <div key={`${m.name}-${mi}`} className="text-center w-[calc(25%-21px)] max-[900px]:w-[calc(50%-11px)]">
                       <div className="relative w-[128px] h-[128px] rounded-full mx-auto mb-[18px] grid place-items-center overflow-hidden font-['Instrument_Serif',Georgia,serif] italic text-[42px] text-[#ECE9E2] border border-[rgba(236,233,226,0.22)] bg-[radial-gradient(120%_120%_at_30%_20%,rgba(124,138,255,0.30),rgba(92,111,255,0.08)_60%,rgba(236,233,226,0.03))] shadow-[0_8px_30px_rgba(92,111,255,0.18)]">
                         {m.photo ? (
                           <img src={m.photo} alt={m.name} className="w-full h-full object-cover" />

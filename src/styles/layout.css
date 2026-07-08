@@ -544,10 +544,10 @@ section > .wrap, section > .amb ~ * { position: relative; }
 @keyframes nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 .makers-viewport { flex: 1; display: flex; align-items: center; overflow: hidden; }
 .makers-track { display: flex; gap: 26px; padding: 0 var(--gutter); will-change: transform; }
-.maker-card { flex: 0 0 clamp(300px, 26vw, 380px); }
-.maker-card .mph { position: relative; height: clamp(300px, calc(34vh + 100px), 480px); border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
-  transition: border-color .35s var(--ease-out), transform .45s var(--ease-out); }
-.maker-card:hover .mph { border-color: rgba(92,111,255,0.4); transform: translateY(-4px); }
+.maker-card { flex: 0 0 clamp(220px, 19vw, 270px); }
+.maker-card .mph { position: relative; aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden;
+  transition: transform .45s var(--ease-out); }
+.maker-card:hover .mph { transform: translateY(-4px); }
 .maker-card image-slot { width: 100%; height: 100%; }
 .maker-card .mscrim { position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: 16px;
   background: linear-gradient(180deg, transparent 50%, rgba(10,10,13,0.72) 100%); }

@@ -37,7 +37,7 @@ export default function DealStrip() {
         <div className="strip-pill flex h-16 flex-none items-center gap-2.5 border-r border-[var(--line)] bg-[var(--ink-2)] px-[26px] max-[800px]:h-auto max-[800px]:w-full max-[800px]:justify-center max-[800px]:border-b max-[800px]:border-r-0 max-[800px]:py-3">
           <span className="live-dot" />
           <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-[0.16em] text-[var(--bone)]">
-            30 done deals · live
+            10 done deals · live
           </span>
         </div>
         <div

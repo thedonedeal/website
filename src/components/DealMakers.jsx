@@ -1,9 +1,72 @@
 import React from 'react';
+import photoGaurav from '../assets/bankers/gaurav.svg';
+import photoVinit from '../assets/bankers/vinit.svg';
+import photoDhrish from '../assets/bankers/dhirish.svg';
+import photoSagar from '../assets/bankers/sagar_parekh.svg';
+import photoDeepty from '../assets/bankers/deepty.svg';
 
-const HTML = "\n  <div class=\"makers-sticky\">\n    <div class=\"amb\"><div class=\"glow p\" style=\"width:560px;height:460px;left:-6%;top:8%;opacity:.18\"></div><div class=\"halfcircle warm drift\" data-speed=\"0.14\" style=\"width:300px;height:300px;right:-120px;top:14%;\"></div><div class=\"bigicon drift\" data-speed=\"0.05\" style=\"width:430px;height:430px;left:-90px;bottom:-80px;\"><svg viewBox=\"0 0 24 24\"><use href=\"#ic-users\"></use></svg></div></div>\n    <div class=\"makers-head wrap\">\n      <div class=\"eyebrow-row reveal\"><span class=\"num\">02</span><span class=\"kicker\">The bankers · Sector specialists</span><span class=\"ln\"></span></div>\n      <div class=\"makers-headrow reveal\">\n        <h2 class=\"h-sec\">Meet your <span class=\"accent-copper\">Deal Makers.</span></h2>\n      </div>\n    </div>\n    <div class=\"makers-viewport\">\n      <div class=\"makers-track\">\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-1\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-1.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Consumer</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Priya Nair</div><div class=\"mr\">Managing Director, Consumer</div><div class=\"mp\">Ex-Avendus. 14 years, ₹4,000 Cr+ in consumer M&amp;A.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-2\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-2.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Fintech</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Arjun Mehta</div><div class=\"mr\">Managing Director, Fintech</div><div class=\"mp\">Ex-Goldman Sachs. Led 20+ payments and lending deals.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-3\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-3.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">SaaS</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Kabir Shah</div><div class=\"mr\">Managing Director, SaaS</div><div class=\"mp\">Ex-Qatalyst. Sold three software companies to US strategics.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-4\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-4.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Healthcare</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Meera Rao</div><div class=\"mr\">Managing Director, Healthcare</div><div class=\"mp\">Ex-Jefferies. Built the health-tech coverage group from zero.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-5\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-5.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Industrials</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Rohan Desai</div><div class=\"mr\">Managing Director, Industrials</div><div class=\"mp\">Ex-Rothschild. Cross-border manufacturing &amp; supply-chain deals.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-6\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-6.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Media</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Sara Iyer</div><div class=\"mr\">Managing Director, Media</div><div class=\"mp\">Ex-Moelis. Creator economy, gaming and digital media exits.</div></div>\n        <div class=\"maker-card\"><div class=\"mph\"><image-slot id=\"mk-7\" shape=\"rect\" fit=\"cover\" src=\"assets/ph-head-7.png\"></image-slot><div class=\"mscrim\"></div><span class=\"mph-sector\">Capital markets</span><a class=\"mln\" href=\"#\" aria-label=\"LinkedIn profile\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z\"></path><rect x=\"2\" y=\"9\" width=\"4\" height=\"12\" rx=\"0.8\"></rect><circle cx=\"4\" cy=\"4\" r=\"2\"></circle></svg></a></div><div class=\"mn\">Vikram Banerjee</div><div class=\"mr\">Head of Capital Markets</div><div class=\"mp\">Ex-Morgan Stanley. Structured ₹6,000 Cr+ in growth rounds.</div></div>\n      </div>\n    </div>\n    <div class=\"makers-progress\"><i id=\"makers-bar\"></i></div>\n  </div>\n";
+const MAKERS = [
+  { id: 'mk-1', sector: 'Media', photoSrc: photoGaurav, name: 'Gaurav Jha', role: 'Lead, Media | Consumer | F&B', linkedin: 'https://www.linkedin.com/in/gaurav-jha1910' },
+  { id: 'mk-2', sector: 'Logistics', photoSrc: photoVinit, name: 'Vinit Jain', role: 'Lead, Logistics | Consumer', linkedin: 'https://www.linkedin.com/in/win-it-jain' },
+  { id: 'mk-3', sector: 'Edtech', photoSrc: photoDhrish, name: 'Dhrish Saggi', role: 'Lead, Edtech | IT Services | SaaS', linkedin: 'https://www.linkedin.com/in/dhrishsaggi/' },
+  { id: 'mk-4', sector: 'Fintech', photoSrc: photoSagar, name: 'Sagar Parekh', role: 'Lead, Fintech | Logistics | ESG', linkedin: 'https://www.linkedin.com/in/parekh-sagar/' },
+  { id: 'mk-5', sector: 'Fundraising', photoSrc: photoDeepty, name: 'Deepty Chopra', role: 'Lead, Fundraising', linkedin: 'https://www.linkedin.com/in/deepty-chopra/' },
+  { id: 'mk-6', sector: 'M&A', photoSrc: null, name: 'Dhairya Borar', role: 'M&A Lead', linkedin: null },
+];
+
+function LinkedInGlyph() {
+  return (
+    <svg viewBox="0 0 24 24">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.8A5.8 5.8 0 0 1 16 8Z" />
+      <rect x="2" y="9" width="4" height="12" rx="0.8" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
 
 export default function DealMakers() {
   return (
-    <section className="makers-h" id="makers" data-screen-label="Deal makers" dangerouslySetInnerHTML={{ __html: HTML }} />
+    <section className="makers-h" id="makers" data-screen-label="Deal makers">
+      <div className="makers-sticky">
+        <div className="amb">
+          <div className="glow p" style={{ width: '560px', height: '460px', left: '-6%', top: '8%', opacity: 0.18 }} />
+          <div className="halfcircle warm drift" data-speed="0.14" style={{ width: '300px', height: '300px', right: '-120px', top: '14%' }} />
+          <div className="bigicon drift" data-speed="0.05" style={{ width: '430px', height: '430px', left: '-90px', bottom: '-80px' }}>
+            <svg viewBox="0 0 24 24"><use href="#ic-users" /></svg>
+          </div>
+        </div>
+        <div className="makers-head wrap">
+          <div className="eyebrow-row reveal">
+            <span className="num">02</span>
+            <span className="kicker">The bankers · Sector specialists</span>
+            <span className="ln" />
+          </div>
+          <div className="makers-headrow reveal">
+            <h2 className="h-sec">Meet your <span className="accent-copper">Deal Makers.</span></h2>
+          </div>
+        </div>
+        <div className="makers-viewport">
+          <div className="makers-track">
+            {MAKERS.map((m) => (
+              <div className="maker-card" key={m.id}>
+                <div className="mph">
+                  <image-slot id={m.id} shape="rect" fit="cover" src={m.photoSrc}></image-slot>
+                  <div className="mscrim" />
+                  <span className="mph-sector">{m.sector}</span>
+                  {m.linkedin && (
+                    <a className="mln" href={m.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+                      <LinkedInGlyph />
+                    </a>
+                  )}
+                </div>
+                <div className="mn">{m.name}</div>
+                <div className="mr">{m.role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="makers-progress"><i id="makers-bar" /></div>
+      </div>
+    </section>
   );
 }

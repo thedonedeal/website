@@ -256,6 +256,8 @@ body.page-investors .hero .link { color: #131119; }
 body.page-investors .hero .link .arrow { color: var(--purple-deep); }
 
 body.page-investors .hero-trust span { color: rgba(19,17,25,0.62); }
+body.page-investors .hero .trust-check { background: #A6AEFF; box-shadow: 0 3px 10px rgba(92,111,255,0.42); }
+body.page-investors .hero .trust-check svg { stroke: #1b1547; }
 
 /* Fountain canvas — absolutely positioned on the right half of the hero panel */
 .match-viz-wrap {

@@ -232,7 +232,7 @@ export default function Investors() {
             </div>
           </div>
         </section>
-        <section className="press-strip" data-screen-label="As seen in">
+        {/* <section className="press-strip" data-screen-label="As seen in">
           <div className="wrap press-row" style={{ "borderWidth": "0px" }}>
             <span className="press-label">
               As seen in
@@ -272,7 +272,7 @@ export default function Investors() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="section-pad on-light" id="how" data-screen-label="How it works">
           <div className="amb">
             <div className="bigicon drift" data-speed="0.06" style={{ "width": "440px", "height": "440px", "right": "-110px", "top": "40px" }}>
