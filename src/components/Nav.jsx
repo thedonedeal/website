@@ -39,7 +39,7 @@ export default function Nav({ current }) {
         ref={headerRef}
       >
         <a className="inline-flex items-center no-underline" href="/" aria-label="Done Deal home">
-          <img className={brandLogoClass} src="/assets/06a40a90a90f.svg" alt="done.deals" />
+          <img className={brandLogoClass} src="/assets/done-deal-icon.svg" alt="done.deals" />
         </a>
 
         <nav className="nav-links hidden items-center gap-[34px] min-[801px]:flex" aria-label="Primary navigation">
@@ -83,7 +83,7 @@ export default function Nav({ current }) {
       >
         <div className="absolute inset-x-0 top-0 flex h-[72px] items-center justify-between px-5">
           <a className="inline-flex items-center" href="/" onClick={closeMobile} aria-label="Done Deal home">
-            <img className={brandLogoClass} src="/assets/06a40a90a90f.svg" alt="done.deals" />
+            <img className={brandLogoClass} src="/assets/done-deal-icon.svg" alt="done.deals" />
           </a>
           <button
             className="dd-mn-close -mr-[9px] inline-flex h-11 w-11 items-center justify-center border-0 bg-transparent p-0 text-[var(--bone)]"

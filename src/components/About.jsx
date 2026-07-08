@@ -24,6 +24,11 @@ import photoNavneet from "../assets/navneet.svg";
 import photoAnubhav from "../assets/anubhav.svg";
 import photoAshutosh from "../assets/ashutosh.svg";
 import photoAbhijeet from "../assets/abhijeet.svg";
+import photoGaurav from "../assets/bankers/gaurav.svg";
+import photoVinit from "../assets/bankers/vinit.svg";
+import photoDeepty from "../assets/bankers/deepty.svg";
+import photoDhrish from "../assets/bankers/dhirish.svg";
+import photoSagar from "../assets/bankers/sagar_parekh.svg";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -70,25 +75,17 @@ const TEAM_GROUPS = [
       { initials: "RR", name: "Rohit Raj", role: "Co-Founder" },
       { initials: "AJ", name: "Ankur Jain", role: "Co-Founder" },
       { initials: "AS", name: "Aneesh Sivakumar", role: "Co-Founder" },
-      { initials: "DB", name: "Dehit Bhardva", role: "Analyst" },
     ],
   },
   {
     label: "Bankers",
     members: [
-      { initials: "AM", name: "Arjun Mehta", role: "Managing Director" },
-      { initials: "IK", name: "Ishaan Kapoor", role: "Director" },
-      { initials: "PN", name: "Priya Nair", role: "Vice President" },
-      { initials: "KM", name: "Karan Malhotra", role: "Vice President" },
-      { initials: "DM", name: "Divya Menon", role: "Vice President" },
-      { initials: "VI", name: "Vivek Iyer", role: "Associate" },
-      { initials: "SR", name: "Sneha Reddy", role: "Associate" },
-      { initials: "MJ", name: "Meera Joshi", role: "Associate" },
-      { initials: "AS", name: "Aditya Shah", role: "Associate" },
-      { initials: "AG", name: "Ananya Ghosh", role: "Analyst" },
-      { initials: "RV", name: "Rahul Verma", role: "Analyst" },
-      { initials: "NR", name: "Nikhil Rao", role: "Analyst" },
-    ],
+      { initials: "GJ", name: "Gaurav Jha", role: "Founder's Office", photo: photoGaurav, linkedin_url: "https://www.linkedin.com/in/gaurav-jha1910" },
+      { initials: "VJ", name: "Vinit Jain", role: "Associate", photo: photoVinit, linkedin_url: "https://www.linkedin.com/in/win-it-jain" },
+      { initials: "DC", name: "Deepty Chopra", role: "Associate", photo: photoDeepty, linkedin_url: "https://www.linkedin.com/in/deepty-chopra/" },
+      { initials: "DS", name: "Dhrish Saggi", role: "Category Lead", photo: photoDhrish, linkedin_url: "https://www.linkedin.com/in/dhrishsaggi/" },
+      { initials: "SP", name: "Sagar Parekh", role: "Category Lead", photo: photoSagar, linkedin_url: "https://www.linkedin.com/in/parekh-sagar/" },
+    ]
   },
   {
     label: "Engineers",
@@ -981,9 +978,17 @@ export default function About() {
                       </div>
                       <div className="inline-flex items-center gap-[8px] font-semibold text-[17px] tracking-[-0.01em] text-[#ECE9E2]">
                         {m.name}
-                        <a href="#" aria-label={`${m.name} on LinkedIn`} className="inline-flex text-[rgba(236,233,226,0.40)] transition-colors duration-200 hover:text-[#A6AEFF]">
-                          <LinkedInIcon />
-                        </a>
+                        {m.linkedin_url && (
+                          <a
+                            href={m.linkedin_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${m.name} on LinkedIn`}
+                            className="inline-flex text-[rgba(236,233,226,0.40)] transition-colors duration-200 hover:text-[#A6AEFF]"
+                          >
+                            <LinkedInIcon />
+                          </a>
+                        )}
                       </div>
                       <div className="mt-[6px] text-[13.5px] text-[rgba(236,233,226,0.62)]">{m.role}</div>
                     </div>
