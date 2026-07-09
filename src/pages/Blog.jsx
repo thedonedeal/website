@@ -7,6 +7,8 @@ import useLightwell from '../hooks/useLightwell';
 import { POSTS } from '../data/posts';
 import LazyImage from '../components/LazyImage';
 import '../styles/blog.css';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 const ORB_SM = { width: 200, height: 200, left: '-10%', top: '-18%', opacity: 0.55 };
 
@@ -82,6 +84,7 @@ export default function Blog() {
 
   return (
     <>
+      <Seo {...ROUTE_META['/blog']} path="/blog" />
       <Nav current="blog" />
       <main id="top">
 

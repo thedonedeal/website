@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
@@ -9,6 +9,8 @@ import useInvestorsViz from '../hooks/useInvestorsViz';
 import '../styles/investors.css';
 import useHeroAurora from '../hooks/useHeroAurora';
 import { FAQS } from '../data/faqs';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 const DISPLAY_FAQS = ['general', 'founder', 'buyer'].flatMap((cat) =>
   FAQS.filter((faq) => faq.cat === cat).slice(0, 2)
@@ -30,13 +32,14 @@ export default function Investors() {
   useHeroAurora(auroraRef, panelRef, 1);
   
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     document.body.classList.add('page-investors');
     return () => document.body.classList.remove('page-investors');
   }, []);
 
   return (
     <>
+      <Seo {...ROUTE_META['/investors']} path="/investors" />
       <Nav current="investors" />
       <main id="top">
         <div className="lightwell">

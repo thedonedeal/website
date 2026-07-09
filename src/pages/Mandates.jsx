@@ -5,6 +5,8 @@ import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
 import '../styles/mandates.css';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 /* ── SVG icon fragments ─────────────────────────────────────── */
 const BankPaths = () => (
@@ -329,6 +331,7 @@ export default function Mandates() {
 
   return (
     <>
+      <Seo {...ROUTE_META['/mandates']} path="/mandates" />
       <Nav current="mandates" />
       <main id="top">
 

@@ -7,6 +7,8 @@ import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
 import useHeroAurora from '../hooks/useHeroAurora';
 import '../styles/contact.css';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 const OFFICES = [
   {
@@ -107,6 +109,7 @@ export default function Contact() {
 
   return (
     <>
+      <Seo {...ROUTE_META['/contact']} path="/contact" />
       <Nav />
       <main id="top">
         <section className="contact-fold wrap" data-screen-label="Contact">

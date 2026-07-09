@@ -5,6 +5,8 @@ import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
 import '../styles/legal.css';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 export default function Legal() {
   useReveal();
@@ -15,6 +17,7 @@ export default function Legal() {
 
   return (
     <>
+      <Seo {...ROUTE_META['/legal']} path="/legal" />
       <Nav />
       <main id="top">
         {/* ── Hero ─────────────────────────────────────────────────── */}

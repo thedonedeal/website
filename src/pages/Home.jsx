@@ -20,6 +20,18 @@ import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
 import useMakersPin from '../hooks/useMakersPin';
 import useProcessScenes from '../hooks/useProcessScenes';
+import Seo from '../components/Seo';
+import { SITE_URL, SITE_NAME, ROUTE_META } from '../seo/meta';
+
+const STRUCTURED_DATA = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/assets/done-deal-icon.svg`,
+  sameAs: [],
+};
+
 export default function Home() {
   // Pinned / scroll-driven sections
   useProcessScenes();
@@ -31,6 +43,7 @@ export default function Home() {
 
   return (
     <>
+      <Seo {...ROUTE_META['/']} path="/" structuredData={STRUCTURED_DATA} />
       <Nav current="home" />
       <main id="top">
         <Hero />

@@ -6,6 +6,8 @@ import useParallax from '../hooks/useParallax';
 import useLightwell from '../hooks/useLightwell';
 import { FAQS } from '../data/faqs.jsx';
 import '../styles/faq.css';
+import Seo from '../components/Seo';
+import { ROUTE_META } from '../seo/meta';
 
 const FILTERS = [
   { key: 'all',     label: 'All questions' },
@@ -56,8 +58,19 @@ export default function FAQ() {
 
   const visible = filter === 'all' ? FAQS : FAQS.filter((f) => f.cat === filter);
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a.join(' ') },
+    })),
+  };
+
   return (
     <>
+      <Seo {...ROUTE_META['/faq']} path="/faq" structuredData={structuredData} />
       <Nav current="faq" />
       <main id="top">
 
