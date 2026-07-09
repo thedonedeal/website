@@ -1,19 +1,19 @@
 import React from 'react';
 
 const DEALS = [
-  { nm: 'ORBO AI × Niyogin', mt: 'SaaS / AI · 14w' },
+  { nm: 'ORBO AI × Niyogin', mt: 'SaaS / AI' },
   // { nm: 'Trase × Upscalio', mt: 'D2C · 9w' },
   // { nm: 'Zymrat × Stylcheck', mt: 'Consumer · 12w' },
-  { nm: 'WLDD × ScoopWhoop', mt: 'Media · 11w' },
-  { nm: 'Heritage × Get-A-Way', mt: 'Foods · 8w' },
-  { nm: 'WLDD × 7-10', mt: 'D2C · 8w' },
-  { nm: 'Sekkei Bio × Tenshi', mt: 'Biotech · 8w' },
-  { nm: 'Ritualistic × Deep Bajaj', mt: 'Decor · 8w' },
-  { nm: 'MetaShot × Sharrp Ventures ', mt: 'Gaming · 8w' },
+  { nm: 'WLDD × ScoopWhoop', mt: 'Media ' },
+  { nm: 'Heritage × Get-A-Way', mt: 'Foods' },
+  { nm: 'WLDD × 7-10', mt: 'D2C' },
+  { nm: 'Sekkei Bio × Tenshi', mt: 'Biotech' },
+  { nm: 'Ritualistic × Deep Bajaj', mt: 'Decor' },
+  { nm: 'MetaShot × Sharrp Ventures ', mt: 'Gaming' },
   // { nm: 'The Soap Co.', mt: 'D2C · 6w' },
-  { nm: 'Terribly Tiny Tales × CAN', mt: 'Media · 6w' },
-  { nm: 'Styched × Flatheads', mt: 'D2C · 6w' },
-  { nm: '₹150 Cr+ BPC Deal', mt: 'BPC · 6w' },
+  { nm: 'Terribly Tiny Tales × CAN', mt: 'Media' },
+  { nm: 'Styched × Flatheads', mt: 'D2C' },
+  { nm: '₹150 Cr+ BPC Deal', mt: 'BPC' },
   // { nm: 'Ledgerly', mt: 'Fintech · 5w' },
 ];
 
