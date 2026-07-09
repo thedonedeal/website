@@ -1,4 +1,5 @@
 import React, { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
@@ -14,6 +15,10 @@ const DISPLAY_FAQS = ['general', 'founder', 'buyer'].flatMap((cat) =>
 );
 
 export default function Investors() {
+
+  const { pathname } = useLocation();
+  const pageSlug = pathname.replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'home';
+  const buyerOnboardingUrl = `https://app.done.deals/buyer/onboarding?utm_source=${encodeURIComponent(pageSlug)}`;
 
   const panelRef = React.useRef(null);
   const auroraRef = React.useRef(null);
@@ -62,7 +67,7 @@ export default function Investors() {
                 <h1 className="h-display hero-h1">
                   Find your next
                   <br className="bm" style={{ "display": "none" }} />
-                  acquisition
+                   acquisition
                   <br className="bd" />
                   {" "}
                   <span className="hero-line2">
@@ -77,7 +82,7 @@ export default function Investors() {
                   We use AI to match you with startups that fit your exact mandate — then send you only the deals worth your time. No retainers. No finder fees. No noise.
                 </p>
                 <div className="cta-row">
-                  <a className="btn btn-primary" href="#cta">
+                  <a className="btn btn-primary" href={buyerOnboardingUrl} target="_blank" rel="noopener noreferrer">
                     Join buyer network
                   </a>
                   <a className="link" href="#how">
@@ -624,7 +629,7 @@ export default function Investors() {
                 </div>
               </div>
               <div style={{ "marginTop": "40px" }} className="reveal">
-                <a className="btn btn-primary" href="#cta">
+                <a className="btn btn-primary" href={buyerOnboardingUrl} target="_blank" rel="noopener noreferrer">
                   Join buyer network
                 </a>
               </div>
@@ -912,7 +917,7 @@ export default function Investors() {
             </div>
           </section>
           <section className="cta-band" data-screen-label="CTA actions">
-            <a className="btn btn-primary" href="#">
+            <a className="btn btn-primary" href={buyerOnboardingUrl} target="_blank" rel="noopener noreferrer">
               Join buyer network
             </a>
             <a className="link" href="#">

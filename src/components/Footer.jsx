@@ -3,7 +3,7 @@ import React from 'react';
 const FOOTER_LINKS = [
   {
     title: 'Done Deal',
-    links: [{ label: 'Contact us', href: 'DoneDeal-Contact.html' }],
+    links: [{ label: 'Contact us', href: 'DoneDeal-Contact.html' },  { label: 'About us', href: '/about' }],
   },
   {
     title: 'Product',

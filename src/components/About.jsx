@@ -62,8 +62,8 @@ const FOUNDER_PARAS = [
 
 const FOUNDERS_SIGN = [
   { name: "Rohit Raj", role: "Co-Founder" },
-  { name: "Ankur Jain", role: "Co-Founder" },
   { name: "Aneesh Sivakumar", role: "Co-Founder" },
+  { name: "Ankur Jain", role: "Co-Founder" },
 ];
 
 const VALUES = [
@@ -87,8 +87,8 @@ const TEAM_GROUPS = [
     label: "Core Team",
     members: [
       { initials: "RR", name: "Rohit Raj", role: "Co-Founder", photo: photoRohit, linkedin_url: "https://www.linkedin.com/in/rohitrajkaral/"},
-      { initials: "AJ", name: "Ankur Jain", role: "Co-Founder" },
       { initials: "AS", name: "Aneesh Sivakumar", role: "Co-Founder", photo: photoAneesh, linkedin_url: "https://www.linkedin.com/in/aneesh-sivakumar/" },
+      { initials: "AJ", name: "Ankur Jain", role: "Co-Founder" },
     ],
   },
   {
@@ -808,14 +808,14 @@ export default function About() {
               <p className="text-[rgba(236,233,226,0.62)] leading-[1.6] tracking-[-0.006em] max-w-[740px] mx-auto mt-[26px] text-[clamp(16px,1.6vw,19px)]">
                 Done Deal is India's AI-native investment bank for the ambitious mid-market — institutional-grade M&A capability with the speed and intelligence of a technology company. Built for the founders legacy banks were never designed to serve.
               </p>
-              <div className="flex gap-[14px] justify-center flex-wrap mt-[40px] max-md:flex-col max-md:items-stretch">
+              {/* <div className="flex gap-[14px] justify-center flex-wrap mt-[40px] max-md:flex-col max-md:items-stretch">
                 <Btn variant="primary" href={DEALS} className="max-md:w-full max-md:justify-center">
                   Talk to us <span aria-hidden="true">→</span>
                 </Btn>
                 <Btn variant="ghost" href={GET_STARTED_HREF} className="max-md:w-full max-md:justify-center">
                   Join the team
                 </Btn>
-              </div>
+              </div> */}
             </Reveal>
           </div>
         </section>
@@ -987,7 +987,7 @@ export default function About() {
                 </div>
                 <div className="flex flex-wrap justify-center gap-[28px] max-[900px]:gap-y-[32px] max-[900px]:gap-x-[22px]">
                   {group.members.map((m, mi) => (
-                    <div key={`${m.name}-${mi}`} className="text-center w-[calc(25%-21px)] max-[900px]:w-[calc(50%-11px)]">
+                    <div key={`${m.name}-${mi}`} className={`text-center ${group.label === "Bankers" ? "w-[calc(33.333%-19px)]" : "w-[calc(25%-21px)]"} max-[900px]:w-[calc(50%-11px)]`}>
                       <div className="relative w-[128px] h-[128px] rounded-full mx-auto mb-[18px] grid place-items-center overflow-hidden font-['Instrument_Serif',Georgia,serif] italic text-[42px] text-[#ECE9E2] border border-[rgba(236,233,226,0.22)] bg-[radial-gradient(120%_120%_at_30%_20%,rgba(124,138,255,0.30),rgba(92,111,255,0.08)_60%,rgba(236,233,226,0.03))] shadow-[0_8px_30px_rgba(92,111,255,0.18)]">
                         {m.photo ? (
                           <img src={m.photo} alt={m.name} className="w-full h-full object-cover" />
@@ -1019,7 +1019,7 @@ export default function About() {
         </section>
 
         {/* ── FINAL CTA ────────────────────────────────────── */}
-        <section className="py-[clamp(76px,9vh,132px)]" data-screen-label="Careers CTA">
+        {/* <section className="py-[clamp(76px,9vh,132px)]" data-screen-label="Careers CTA">
           <div className="max-w-[1320px] mx-auto px-[clamp(24px,6.5vw,120px)] relative z-[1]">
             <Reveal className="relative overflow-hidden isolate flex flex-col items-center text-center max-w-[860px] mx-auto rounded-[24px] p-[clamp(32px,4vw,46px)] border border-[rgba(92,111,255,0.28)] bg-[linear-gradient(160deg,rgba(92,111,255,0.16),#0E0C16_62%)]">
               <div className="dd-amb absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -1042,7 +1042,7 @@ export default function About() {
               </div>
             </Reveal>
           </div>
-        </section>
+        </section> */}
     </div>
   );
 }

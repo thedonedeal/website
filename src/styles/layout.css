@@ -544,7 +544,7 @@ section > .wrap, section > .amb ~ * { position: relative; }
 @keyframes nudge { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
 .makers-viewport { flex: 1; display: flex; align-items: center; overflow: hidden; }
 .makers-track { display: flex; gap: 26px; padding: 0 var(--gutter); will-change: transform; }
-.maker-card { flex: 0 0 clamp(220px, 19vw, 270px); }
+.maker-card { flex: 0 0 clamp(264px, 23vw, 324px); }
 .maker-card .mph { position: relative; aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden;
   transition: transform .45s var(--ease-out); }
 .maker-card:hover .mph { transform: translateY(-4px); }

@@ -1,5 +1,6 @@
 import React from 'react';
 import imgTestimonialAjith from '../assets/testimonial/testimonial-ajith.svg';
+import imgTestimonialArihant from '../assets/testimonial/testimonial-arihant.svg';
 
 const TESTIMONIALS = [
   // {
@@ -37,6 +38,15 @@ const TESTIMONIALS = [
     quotePre: 'We partnered with DoneDeal to support our fundraising efforts, and the experience was exceptional. Done Deal was instrumental in connecting us with high-quality leads and key decision-makers across ',
     quoteEm: '7 different investment firms',
     quotePost: ", all of whom were genuinely relevant to our sector. The level of access and professionalism they provided was top-tier. They don't just facilitate introductions; they facilitate meaningful conversations. I highly recommend DoneDeal to any founder looking for a structured and efficient fundraising support system.",
+  },
+  {
+    name: 'Arihant Jain',
+    role: 'Founder, WLDD',
+    attribution: 'Founder, WLDD',
+    portraitSrc: imgTestimonialArihant,
+    quotePre: 'ScoopWhoop was always an asset we were keen on acquiring. ',
+    quoteEm: "We'd tried reaching out multiple times on our own, but could never get through.",
+    quotePost: " That's when we turned to Done Deal - having successfully acquired two companies through them before, we already had a high level of trust and comfort in their process. Done Deal was instrumental in finally making the ScoopWhoop acquisition happen.",
   },
 ];
 
@@ -76,10 +86,10 @@ export default function Testimonials() {
                         placeholder="Drop the founder's photo"
                       ></image-slot>
                       <div className="tp-scrim" />
-                      <div className="tp-cap">
+                      {/* <div className="tp-cap">
                         <b>{t.name}</b>
                         <span>{t.role}</span>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="testi-body">
                       <span className="testi-mark">"</span>
