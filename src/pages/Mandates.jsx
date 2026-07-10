@@ -8,6 +8,21 @@ import '../styles/mandates.css';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
 
+import iconAgency from '../assets/mandates/agency.svg';
+import iconAi from '../assets/mandates/ai.svg';
+import iconB2b from '../assets/mandates/b2b-Services.svg';
+import iconConsumer from '../assets/mandates/consumer_brands.svg';
+import iconEdTech from '../assets/mandates/ed-Tech.svg';
+import iconFintechImg from '../assets/mandates/fintech.svg';
+import iconGaming from '../assets/mandates/gaming.svg';
+import iconHealthcareImg from '../assets/mandates/healthcare.svg';
+import iconHospitality from '../assets/mandates/hospitality.svg';
+import iconItServices from '../assets/mandates/it-services.svg';
+import iconMarketplaceImg from '../assets/mandates/marketplace.svg';
+import iconOthers from '../assets/mandates/others.svg';
+import iconRenewables from '../assets/mandates/renewables.svg';
+import iconSaasImg from '../assets/mandates/saas.svg';
+
 /* ── SVG icon fragments ─────────────────────────────────────── */
 const BankPaths = () => (
   <>
@@ -51,23 +66,6 @@ const CircuitPaths = () => (
     <circle cx="15" cy="15" r="1.6" />
   </>
 );
-const CpuPaths = () => (
-  <>
-    <rect x="4" y="4" width="16" height="16" rx="2" />
-    <rect x="9" y="9" width="6" height="6" />
-    <line x1="9" y1="2" x2="9" y2="4" /><line x1="15" y1="2" x2="15" y2="4" />
-    <line x1="9" y1="20" x2="9" y2="22" /><line x1="15" y1="20" x2="15" y2="22" />
-    <line x1="20" y1="9" x2="22" y2="9" /><line x1="20" y1="14" x2="22" y2="14" />
-    <line x1="2" y1="9" x2="4" y2="9" /><line x1="2" y1="14" x2="4" y2="14" />
-  </>
-);
-const CartPaths = () => (
-  <>
-    <circle cx="8" cy="21" r="1" />
-    <circle cx="19" cy="21" r="1" />
-    <path d="M2 3h2l2.6 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 7H5.1" />
-  </>
-);
 const LayersPaths = () => (
   <>
     <polygon points="12 2 2 7 12 12 22 7 12 2" />
@@ -82,6 +80,56 @@ function MIcon({ children }) {
       {children}
     </svg>
   );
+}
+
+/* ── Category → icon / slug helpers ──────────────────────────── */
+function slugifyCategory(category) {
+  return category.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function iconForCategory(category) {
+  const c = category.toLowerCase();
+  if (c.includes('it service') || c.includes('it product')) return iconItServices;
+  if (c.includes('healthcare')) return iconHealthcareImg;
+  if (c.includes('fintech')) return iconFintechImg;
+  if (c.includes('saas')) return iconSaasImg;
+  if (c.includes('ai') || c.includes('deeptech') || c.includes('iot')) return iconAi;
+  if (c.includes('consumer')) return iconConsumer;
+  if (c.includes('b2b')) return iconB2b;
+  if (c.includes('marketplace')) return iconMarketplaceImg;
+  if (c.includes('agency')) return iconAgency;
+  if (c.includes('ed-tech') || c.includes('ed tech') || c.includes('edtech')) return iconEdTech;
+  if (c.includes('gaming')) return iconGaming;
+  if (c.includes('hospitality')) return iconHospitality;
+  if (c.includes('renewable')) return iconRenewables;
+  return iconOthers;
+}
+
+/* ── Revenue formatting ───────────────────────────────────────
+   0-999 → as-is · 1,000+ → "N thousand" · 1,00,000+ → "N L" · 1,00,00,000+ → "N cr" */
+function formatAmount(value) {
+  const trim = (n) => (Number.isInteger(n) ? n : n.toFixed(1));
+  if (value >= 1e7) return `${trim(value / 1e7)} cr`;
+  if (value >= 1e5) return `${trim(value / 1e5)} L`;
+  if (value >= 1e3) return `${trim(value / 1e3)} thousand`;
+  return `${value}`;
+}
+
+function formatRevenueRange(minValue, maxValue) {
+  return `₹${formatAmount(minValue)} – ${formatAmount(maxValue)}`;
+}
+
+function mandateFromApi({ id, title, description, category, revenue_min_value, revenue_max_value, ebitda }) {
+  return {
+    id,
+    cat: slugifyCategory(category),
+    pill: category,
+    title,
+    desc: description,
+    rev: formatRevenueRange(revenue_min_value, revenue_max_value),
+    ebitda: ebitda === true ? 'Positive' : 'Open to all',
+    iconImg: iconForCategory(category),
+  };
 }
 
 /* ── Data ───────────────────────────────────────────────────── */
@@ -130,81 +178,107 @@ const FEATURED = [
   },
 ];
 
-const MANDATES = [
+const MANDATES_API = [
   {
-    id: 'm1', cat: 'it', pill: 'IT Services',
-    title: 'Enterprise platforms',
-    desc: 'Prominent software services major interested in IT services companies focused on data analytics, ServiceNow, Salesforce, SAP & MS Dynamics.',
-    rev: '₹0–50 cr', ebitda: 'Open to all',
-    icon: <CpuPaths />,
+    id: 235,
+    title: 'IT Services, BPO, KPO Companies',
+    description: 'Early-stage AI infra startup improving LLM performance through high-quality data, evaluation, and reinforcement learning workflows.',
+    category: 'IT Services/Products',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: true,
+    status: 'active',
   },
   {
-    id: 'm2', cat: 'ai', pill: 'AI/Deeptech/IOT',
-    title: 'Cybersecurity & DeepTech',
-    desc: 'Large IT services company interested in companies with cybersecurity, AI and DeepTech capabilities.',
-    rev: '₹0–50 cr', ebitda: 'Open to all',
-    icon: <CircuitPaths />,
+    id: 243,
+    title: 'Engineering Services & Product Engineering',
+    description: 'A global engineering services firm focused on digital engineering, embedded software, and product engineering across key industries.',
+    category: 'IT Services/Products',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: null,
+    status: 'active',
   },
   {
-    id: 'm3', cat: 'saas', pill: 'SaaS',
-    title: 'Vertical SaaS',
-    desc: 'Global software group seeking vertical SaaS companies in logistics, healthcare or construction with sticky, recurring ARR.',
-    rev: '₹10–100 cr', ebitda: 'Open to all',
-    icon: <CloudPaths />,
+    id: 244,
+    title: 'AI & Data Engineering Acquisition',
+    description: 'Publicly listed Indian IT services company acquiring service-based firms in AI, cloud, data engineering, and CRM.',
+    category: 'IT Services/Products',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: null,
+    status: 'active',
   },
   {
-    id: 'm4', cat: 'fintech', pill: 'Fintech',
-    title: 'Lending & payments',
-    desc: 'Large NBFC interested in lending, payments and embedded-finance platforms with strong unit economics.',
-    rev: '₹20–150 cr', ebitda: 'Positive',
-    icon: <BankPaths />,
+    id: 245,
+    title: 'AI & Cloud Service Companies',
+    description: 'Publicly listed Indian IT services company acquiring service-based firms in AI & Cloud.',
+    category: 'IT Services/Products',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: null,
+    status: 'active',
   },
   {
-    id: 'm5', cat: 'consumer', pill: 'Consumer Brands',
-    title: 'D2C food & beverage',
-    desc: 'Packaged-foods major scouting profitable D2C food and beverage brands with established pan-India distribution.',
-    rev: '₹25–120 cr', ebitda: 'Positive',
-    icon: <BagPaths />,
+    id: 246,
+    title: 'IVF Clinics',
+    description: 'IVF Clinics and Fertility centres with 20-40 monthly cycles, Revenue over 20cr with healthy EBITDA Margins.',
+    category: 'Healthcare Services',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: true,
+    status: 'active',
   },
   {
-    id: 'm6', cat: 'healthcare', pill: 'Healthcare',
-    title: 'Diagnostics & healthtech',
-    desc: 'Hospital chain interested in diagnostics, healthtech and home-care companies expanding across tier-2 cities.',
-    rev: '₹10–100 cr', ebitda: 'Open to all',
-    icon: <HeartPaths />,
+    id: 247,
+    title: 'Manufacturing and Distribution Companies',
+    description: 'The Strategic is looking to acquire companies in Industrial Manufacturing and Distributions space.',
+    category: 'Others',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: true,
+    status: 'active',
   },
   {
-    id: 'm7', cat: 'marketplace', pill: 'Marketplace',
-    title: 'B2B commerce',
-    desc: 'Established marketplace operator looking to acquire B2B commerce platforms in industrial or agri supply chains.',
-    rev: '₹0–80 cr', ebitda: 'Open to all',
-    icon: <CartPaths />,
+    id: 248,
+    title: 'Manufacturing with IP - Agritech, Metal Products',
+    description: 'Leading engineering and manufacturing company, delivering precision-engineered components across agriculture, railway, etc.',
+    category: 'Others',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: true,
+    status: 'active',
   },
   {
-    id: 'm8', cat: 'ai', pill: 'AI/Deeptech/IOT',
-    title: 'MobilityTech',
-    desc: 'Prominent automobile company looking to invest in or acquire MobilityTech startups — EV tech, battery management, IoT and GPS.',
-    rev: '₹0–50 cr', ebitda: 'Open to all',
-    icon: <CircuitPaths />,
+    id: 249,
+    title: 'Agritech - Spices, Nutraceuticals, Functional Foods',
+    description: "India's leading agritech platform providing a digital marketplace for seeds, pesticides, and machinery.",
+    category: 'Others',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: null,
+    status: 'active',
   },
   {
-    id: 'm9', cat: 'it', pill: 'IT Services',
-    title: 'Data analytics services',
-    desc: 'Large data analytics services provider interested in companies serving CPG, BFSI and health clients across the US & Europe.',
-    rev: '₹0–200 cr', ebitda: 'Positive',
-    icon: <CpuPaths />,
+    id: 250,
+    title: 'Fintech - Loyalty, SaaS, AI Solutions',
+    description: 'Leading provider of SaaS and FinTech solutions to manage business spends, payments and rewards through automated and innovative workflows.',
+    category: 'Fintech',
+    revenue_min_value: 0,
+    revenue_max_value: 100000000,
+    ebitda: true,
+    status: 'active',
   },
 ];
 
+const MANDATES = MANDATES_API
+  .filter((m) => m.status === 'active')
+  .map(mandateFromApi);
+
 const FILTERS = [
-  { key: 'all',         label: 'All mandates' },
-  { key: 'it',         label: 'IT Services' },
-  { key: 'ai',         label: 'AI/Deeptech/IOT' },
-  { key: 'saas',       label: 'SaaS' },
-  { key: 'fintech',    label: 'Fintech' },
-  { key: 'consumer',   label: 'Consumer Brands' },
-  { key: 'healthcare', label: 'Healthcare' },
-  { key: 'marketplace',label: 'Marketplace' },
+  { key: 'all', label: 'All mandates' },
+  ...[...new Map(MANDATES.map((m) => [m.cat, m.pill])).entries()]
+    .map(([key, label]) => ({ key, label })),
 ];
 
 /* ── Mandate card ───────────────────────────────────────────── */
@@ -213,7 +287,9 @@ function MandateCard({ item, featured = false }) {
     <article className={`mcard${featured ? ' featured' : ''}`} data-cat={item.cat}>
       {featured && <span className="fbadge">Featured</span>}
       <div className="mcard-head">
-        <span className="mcard-ic"><MIcon>{item.icon}</MIcon></span>
+        <span className={`mcard-ic${item.iconImg ? ' mcard-ic--img' : ''}`}>
+          {item.iconImg ? <img src={item.iconImg} alt="" /> : <MIcon>{item.icon}</MIcon>}
+        </span>
         <div className="mcard-headtext">
           <span className="mcard-pill">{item.pill}</span>
           <h3>{item.title}</h3>

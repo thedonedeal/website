@@ -607,16 +607,17 @@ section.proc3 { padding-bottom: 0; }
 @media (max-width: 440px){ .viz-cards { width: 100%; } .viz-card { grid-template-columns: 4px auto minmax(0, 1fr); gap: 12px; padding: 12px 14px; } }
 
 /* ── Deals accordion (Stripe 'what's happening' style) ── */
-.acc { display: flex; gap: 14px; margin-top: clamp(52px,6.5vh,80px); height: clamp(340px, 44vw, 520px); } @media (max-width:600px){ .acc { margin-top: 22px !important; } }
-.acc-panel { position: relative; flex: 1; min-width: 26px; border: 1px solid var(--line); border-radius: 16px;
+.acc { display: flex; gap: 14px; margin-top: clamp(52px,6.5vh,80px); height: clamp(320px, 42vw, 500px); } @media (max-width:600px){ .acc { margin-top: 22px !important; } }
+.acc-panel { position: relative; flex: 0 1 auto; aspect-ratio: 722 / 898; min-width: 26px; border: 1px solid var(--line); border-radius: 16px;
   overflow: hidden; cursor: pointer; padding: 0; background: var(--ink-1);
   transition: flex .75s var(--ease-io), border-color .3s; }
 .acc-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top;
   pointer-events: none; }
+.acc-panel.on img { object-fit: contain; object-position: center center; }
 .acc-panel::after { content: ""; position: absolute; inset: 0; background: rgba(8,8,11,0.78); transition: background .5s; }
 .acc-panel:hover { border-color: var(--line-strong); }
 .acc-panel:hover::after { background: rgba(8,8,11,0.66); }
-.acc-panel.on { flex: 7; cursor: default; border-color: rgba(92,111,255,0.4); }
+.acc-panel.on { flex: 0 0 auto; cursor: default; border-color: rgba(92,111,255,0.4); }
 .acc-panel.on::after, .acc-panel.on:hover::after { background: rgba(10,10,13,0); }
 .acc-vname { position: absolute; left: 50%; top: 50%; z-index: 2;
   transform: translate(-50%, -50%) rotate(180deg); writing-mode: vertical-rl;

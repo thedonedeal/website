@@ -107,10 +107,10 @@ const TEAM_GROUPS = [
     members: [
       { initials: "PS", name: "Pratik Singh", role: "Software Engineer", photo: photoPratik, linkedin_url: "https://www.linkedin.com/in/pratik-singh-7316591ab/" },
       { initials: "AG", name: "Abhijeet Gautam", role: "Software Engineer", photo: photoAbhijeet, linkedin_url: "https://www.linkedin.com/in/abhijeet-gautam/" },
-      { initials: "AP", name: "Anand Prakash", role: "Software Tester", photo: photoAnand, linkedin_url: "https://www.linkedin.com/in/anand-prakash-a201b7192/" },
-      { initials: "CK", name: "Chandan Kumar", role: "Software Tester", photo: photoChandan, linkedin_url: "https://www.linkedin.com/in/chandan-kumar-29a624205" },
       { initials: "NS", name: "Navneet Singh", role: "Software Engineer", photo: photoNavneet, linkedin_url: "https://www.linkedin.com/in/navneet-singh-0b849820b/" },
       { initials: "AA", name: "Anubhav Aaryan", role: "Software Engineer", photo: photoAnubhav, linkedin_url: "https://www.linkedin.com/in/anubhav-aaryan-099987201/" },
+      { initials: "AP", name: "Anand Prakash", role: "Software Tester", photo: photoAnand, linkedin_url: "https://www.linkedin.com/in/anand-prakash-a201b7192/" },
+      { initials: "CK", name: "Chandan Kumar", role: "Software Tester", photo: photoChandan, linkedin_url: "https://www.linkedin.com/in/chandan-kumar-29a624205" },
       { initials: "AC", name: "Ashutosh Chandra", role: "Product Manager", photo: photoAshutosh, linkedin_url: "https://www.linkedin.com/in/ashuc98/" },
       { initials: "PT", name: "Paras Thappa", role: "Product Designer", photo: photoParas, linkedin_url: "https://www.linkedin.com/in/paras-thappa-49a505201/" },
       // { initials: "KR", name: "Karunanidhi Rajpoot", role: "Product Analyst" },
