@@ -1,5 +1,7 @@
 import React from 'react';
 import { cdnUrl } from '../config/cdn';
+import rohitDealMaker from '../assets/rohit-deal-maker.png';
+import aneeshDealMaker from '../assets/aneesh-deal-maker.png';
 
 const photoGaurav = cdnUrl('gaurav.png');
 const photoVinit = cdnUrl('vinit.png');
@@ -7,8 +9,8 @@ const photoDhrish = cdnUrl('dhrish.png');
 const photoSagar = cdnUrl('sagar.png');
 const photoDeepty = cdnUrl('deepty.png');
 const photoDhairya = cdnUrl('dhairya.png');
-const photoAneesh = cdnUrl("aneesh-deal-maker.png");
-const photoRohit = cdnUrl("rohit-deal-maker.png");
+const photoAneesh = aneeshDealMaker;
+const photoRohit = rohitDealMaker;
 
 
 const MAKERS = [

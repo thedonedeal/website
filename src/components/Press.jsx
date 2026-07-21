@@ -9,14 +9,14 @@ const PRESS_ITEMS = [
     time: '4 Minutes Read',
     link: "https://startupstorymedia.com/insights-data-driven-platform-done-deal-secures-800000-in-pre-seed-funding/"
   },
-  {
-    source: 'Outlook',
-    initials: 'O',
-    logoStyle: { background: '#E11D48' },
-    title: "Done Deal Secures $800,000 in Pre-Seed Funding Round",
-    time: '2 Minutes Read',
-    link: "https://startup.outlookindia.com/sector/saas/done-deal-secures-800-000-in-pre-seed-funding-round-news-9675"
-  },
+  // {
+  //   source: 'Outlook',
+  //   initials: 'O',
+  //   logoStyle: { background: '#E11D48' },
+  //   title: "Done Deal Secures $800,000 in Pre-Seed Funding Round",
+  //   time: '2 Minutes Read',
+  //   link: "https://startup.outlookindia.com/sector/saas/done-deal-secures-800-000-in-pre-seed-funding-round-news-9675"
+  // },
   {
     source: 'Youtube',
     initials: 'YT',

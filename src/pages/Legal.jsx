@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
@@ -13,7 +13,24 @@ export default function Legal() {
   useParallax();
   useLightwell();
 
-  const [tab, setTab] = useState('investor');
+  const VALID_TABS = ['investor', 'company', 'privacy'];
+  const tabFromHash = () => {
+    const hash = window.location.hash.replace('#', '');
+    return VALID_TABS.includes(hash) ? hash : 'investor';
+  };
+
+  const [tab, setTab] = useState(tabFromHash);
+
+  useEffect(() => {
+    const onHashChange = () => setTab(tabFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const selectTab = (next) => {
+    setTab(next);
+    window.history.replaceState(null, '', `#${next}`);
+  };
 
   return (
     <>
@@ -30,9 +47,9 @@ export default function Legal() {
 {/* ── Tabs ─────────────────────────────────────────────────── */}
 <div className="legal-tabbar">
   <div className="legal-tabs" role="tablist">
-    <button role="tab" onClick={() => setTab('investor')} className={tab === 'investor' ? 'on' : ''}>Investor Terms</button>
-    <button className={tab === 'company' ? 'on' : ''} role="tab" onClick={() => setTab('company')}>Company Terms</button>
-    <button className={tab === 'privacy' ? 'on' : ''} role="tab" onClick={() => setTab('privacy')}>Privacy Policy</button>
+    <button role="tab" onClick={() => selectTab('investor')} className={tab === 'investor' ? 'on' : ''}>Investor Terms</button>
+    <button className={tab === 'company' ? 'on' : ''} role="tab" onClick={() => selectTab('company')}>Company Terms</button>
+    <button className={tab === 'privacy' ? 'on' : ''} role="tab" onClick={() => selectTab('privacy')}>Privacy Policy</button>
   </div>
 </div>
 
