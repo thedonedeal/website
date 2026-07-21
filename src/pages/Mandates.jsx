@@ -8,6 +8,7 @@ import useLightwell from '../hooks/useLightwell';
 import '../styles/mandates.css';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
+import { appUrl } from '../config/app';
 
 import { cdnUrl } from '../config/cdn';
 
@@ -339,8 +340,8 @@ export default function Mandates() {
 
   const { search } = useLocation();
   const utmSource = new URLSearchParams(search).get('utm_source') || 'mandate-page';
-  const signupUrl = `https://app.done.deals/signup?utm_source=${encodeURIComponent(utmSource)}`;
-  const buyerOnboardingUrl = `https://app.done.deals/buyer/onboarding?utm_source=${encodeURIComponent(utmSource)}`;
+  const signupUrl = `${appUrl('signup')}?utm_source=${encodeURIComponent(utmSource)}`;
+  const buyerOnboardingUrl = `${appUrl('buyer/onboarding')}?utm_source=${encodeURIComponent(utmSource)}`;
 
   const [filter, setFilter] = useState('all');
   const visible = filter === 'all' ? MANDATES : MANDATES.filter((m) => m.cat === filter);
@@ -503,7 +504,7 @@ export default function Mandates() {
                   <a className="btn btn-primary" href={signupUrl} target="_blank" rel="noopener noreferrer">
                     Sign up as a company
                   </a>
-                  <a className="link" href="https://app.done.deals/valuation-calculator">
+                  <a className="link" href={appUrl('valuation-calculator')}>
                     Get your valuation <span className="arrow">→</span>
                   </a>
                 </div>

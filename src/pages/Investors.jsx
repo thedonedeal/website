@@ -11,6 +11,7 @@ import useHeroAurora from '../hooks/useHeroAurora';
 import { FAQS } from '../data/faqs';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
+import { appUrl } from '../config/app';
 
 const DISPLAY_FAQS = ['general', 'founder', 'buyer'].flatMap((cat) =>
   FAQS.filter((faq) => faq.cat === cat).slice(0, 2)
@@ -22,8 +23,8 @@ export default function Investors() {
   const incomingUtmSource = new URLSearchParams(search).get('utm_source');
   const pageSlug = pathname.replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'home';
   const utmSource = incomingUtmSource || pageSlug;
-  const buyerOnboardingUrl = `https://app.done.deals/buyer/onboarding?utm_source=${encodeURIComponent(utmSource)}`;
-  const buyerLoginUrl = `https://app.done.deals/buyer/login?utm_source=${encodeURIComponent(utmSource)}`;
+  const buyerOnboardingUrl = `${appUrl('buyer/onboarding')}?utm_source=${encodeURIComponent(utmSource)}`;
+  const buyerLoginUrl = `${appUrl('buyer/login')}?utm_source=${encodeURIComponent(utmSource)}`;
 
   const panelRef = React.useRef(null);
   const auroraRef = React.useRef(null);

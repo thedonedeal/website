@@ -9,6 +9,7 @@ import LazyImage from '../components/LazyImage';
 import '../styles/blog.css';
 import Seo from '../components/Seo';
 import { SITE_URL, getBlogPostMeta, resolveImageUrl } from '../seo/meta';
+import { appUrl } from '../config/app';
 
 // eager: true bundles every post body at build time so it's present in the
 // initial render output — required for the body to show up in prerendered
@@ -214,7 +215,7 @@ export default function BlogPost() {
                   It&apos;s free, anonymous, and takes just a few minutes.
                 </p>
                 <div className="cta-row justify-center mt-6">
-                  <a className="btn btn-primary" href="https://app.done.deals/valuation-calculator">
+                  <a className="btn btn-primary" href={appUrl('valuation-calculator')}>
                     Get your valuation
                   </a>
                   <Link className="link" to="/mandates">

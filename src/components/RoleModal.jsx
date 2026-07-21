@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { appUrl } from '../config/app';
 
-const SIGNUP_URL = 'https://app.done.deals/signup';
+const SIGNUP_URL = appUrl('signup');
 
 const ROLE_OPTIONS = [
   {
@@ -21,7 +22,7 @@ const ROLE_OPTIONS = [
   },
   {
     key: 'investor',
-    base: 'https://app.done.deals/buyer/onboarding',
+    base: appUrl('buyer/onboarding'),
     newTab: true,
     title: "Invest or acquire",
     desc: 'Access vetted companies aligned with your goals.',
