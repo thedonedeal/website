@@ -358,7 +358,7 @@ section.proc3 { padding-bottom: 0; }
 .proc3-pin { position: relative; }
 @media (min-width: 901px){
   .proc3-pin { height: 300vh; margin-top: clamp(52px,6.5vh,80px); }
-  .proc3-stage-wrap { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+  .proc3-stage-wrap { position: sticky; top: 0; height: min(100vh, 680px); display: flex; align-items: center; }
   .proc3-stage-wrap .proc3-grid { margin-top: 0; width: 100%; align-items: center; }
   .proc3-vis .proc3-sticky { position: relative; top: 0; height: min(76vh, 600px); }
 }
@@ -670,10 +670,11 @@ section.proc3 { padding-bottom: 0; }
    ════════════════════════════════════════════════════════════ */
 
 /* Hero — nav + hero + strip = one full screen, content centered */
-.hero { min-height: calc(100svh - var(--strip-h, 66px) - 20px);
+.hero { min-height: 40svh;
   padding: calc(var(--nav-h, 66px) + 4px) var(--gutter) clamp(4px,1vh,12px);
-  display: flex; flex-direction: column; justify-content: center; }
-.hero-panel { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 1660px; margin-inline: auto; }
+.hero-panel { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-inline: 0; }
 .hero-grid { align-items: center; grid-template-columns: 1.12fr 0.88fr; }
 .hero h1 { font-size: clamp(38px, 4.5vw, 60px); }
 .hero-h1 .hero-line2 { white-space: nowrap; }

@@ -45,7 +45,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero wrap" data-screen-label="Hero">
+    <section className="hero" data-screen-label="Hero">
       <div className="hero-panel" style={{ padding: '32px 32px 20px' }} ref={panelRef}>
         <canvas className="hero-aurora" aria-hidden="true" ref={auroraRef} />
         <div className="amb">
