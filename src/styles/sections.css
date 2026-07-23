@@ -424,7 +424,7 @@ section.proc3 { padding-bottom: 0; }
    design size — the compact cards + flex-start top-alignment make room. */
 @media (min-width: 901px){
   .proc3-cards { gap: clamp(12px, 1.2vh, 28px); }
-  .vstep { flex-shrink: 0; padding-top: clamp(15px, 1.4vh, 30px); padding-bottom: clamp(15px, 1.4vh, 30px); }
+  .vstep { flex-shrink: 0; padding-top: clamp(15px, 3.4vh, 60px); padding-bottom: clamp(15px, 3.4vh, 60px); }
   .vstep.on { padding-top: clamp(26px, 2.4vh, 56px); padding-bottom: clamp(26px, 2.4vh, 56px); }
 }
 /* Short pinned viewports (e.g. 1440×900, usable ~780–860px after browser
