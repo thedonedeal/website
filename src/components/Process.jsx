@@ -424,26 +424,28 @@ export default function Process() {
       </div>
 
       <div className="wrap">
-        <div className="eyebrow-row reveal">
-          <span className="num">01</span>
-          <span className="kicker">How we work</span>
-          <span className="ln" />
-        </div>
-
-        <h2 className="h-sec reveal">
-          Six steps from mandate to <span className="accent-copper">close.</span>
-        </h2>
-
-        <p className="sec-lede reveal" style={{ marginTop: 18 }}>
-          Every step has two sides — the human running it, and the AI underneath.
-          <span className="p3-hoverhint">
-            {' '}
-            <span style={{ color: 'var(--purple-deep)' }}>Hover a card</span> to see the machine.
-          </span>
-        </p>
-
         <div className="proc3-pin" id="proc3-pin">
           <div className="proc3-stage-wrap">
+            <div className="proc3-head">
+              <div className="eyebrow-row reveal">
+                <span className="num">01</span>
+                <span className="kicker">How we work</span>
+                <span className="ln" />
+              </div>
+
+              <h2 className="h-sec reveal">
+                Six steps from mandate to <span className="accent-copper">close.</span>
+              </h2>
+
+              <p className="sec-lede reveal" style={{ marginTop: 18 }}>
+                Every step has two sides — the human running it, and the AI underneath.
+                <span className="p3-hoverhint">
+                  {' '}
+                  <span style={{ color: 'var(--purple-deep)' }}>Hover a card</span> to see the machine.
+                </span>
+              </p>
+            </div>
+
             <div className="proc3-grid">
               <div className="proc3-cards" id="proc3-cards">
                 {PROCESS_STEPS.map((step, index) => (
