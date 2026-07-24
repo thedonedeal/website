@@ -29,7 +29,7 @@ export default function Assurance() {
             <ul className="sc-list">
               <li>
                 <svg className="ic" viewBox="0 0 24 24"><use href="#ic-shield" /></svg>
-                <span><b>Stealth profiles by default.</b> Buyers see an anonymous, range-only profile — never your name.</span>
+                <span><b>Stealth profiles by default.</b> Buyers see an anonymous profile — never your name.</span>
               </li>
               <li>
                 <svg className="ic" viewBox="0 0 24 24"><use href="#ic-eye" /></svg>

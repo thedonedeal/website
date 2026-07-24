@@ -15,7 +15,7 @@ export default function TrackRecord() {
               <span className="tg-glow" style={{ left: '4px', bottom: 0, width: '46px', height: '104px', borderRadius: '15px' }} />
               <span className="tg-dim" style={{ left: '62px', bottom: 0, width: '46px', height: '38px', borderRadius: '13px' }} />
             </div>
-            <div className="tn" data-count="30">30</div>
+            <div className="tn" data-count="30">35</div>
             <div className="tl">Mandates closed across raise &amp; exit</div>
           </div>
           <div className="tcard reveal">
@@ -24,8 +24,8 @@ export default function TrackRecord() {
               <span className="tg-ring" style={{ left: '56px', width: '90px', height: '90px', opacity: 0.65, bottom: '64px' }} />
               <span className="tg-coin" style={{ left: '56px', bottom: '64px' }} />
             </div>
-            <div className="tn" data-count="3000" data-prefix="₹" data-comma="1">
-              ₹3,000<span className="u">&nbsp;Cr</span>
+            <div className="tn" data-count="400" data-prefix="₹" data-comma="1">
+              ₹400<span className="u">&nbsp;Cr</span>
             </div>
             <div className="tl">Cumulative deal value transacted</div>
           </div>

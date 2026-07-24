@@ -12,7 +12,7 @@ const VIZ_CARDS = [
 const TRUST = [
   ['Anonymous mandate,', ' until you say go'],
   ['Zero retainer,', ' pay only on close'],
-  ['800+ verified buyers,', ' not scraped'],
+  ['1000+ verified buyers,', ' not scraped'],
 ];
 
 export default function Hero() {

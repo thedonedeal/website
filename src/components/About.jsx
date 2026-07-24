@@ -53,12 +53,12 @@ const STATS = [
   { target: 35, caption: "Closed transactions — track record, not talk" },
   { target: 400, prefix: "₹", suffix: " Cr+", caption: "In enterprise value transacted" },
   { target: 1100, suffix: "+", caption: "Verified, structured buyers — not a Rolodex" },
-  { target: 90, prefix: "45–", caption: "Days to close, where banks take 6–9 months" },
+  { target: 14, caption: "weeks, mandate to close" },
 ];
 
 const FOUNDER_PARAS = [
   "The model that exists today was built for a world of large deals, long relationships and slow processes. Legacy bankers take 3% and disappear after the engagement letter. They send cold, templated buyer lists. They only call when the deal is big enough to justify their time. A 55-year-old MD earning a $2M bonus isn't the enemy — the system that made that the only model is.",
-  { pre: "Done Deal was built to fix that. We bring institutional-grade M&A and fundraising to companies between ₹10 Cr and ₹200 Cr in enterprise value — a segment traditional banks have ignored for decades. ", em: "AI runs the analysis. We run the deal." },
+  { pre: "Done Deal was built to fix that. We bring institutional-grade M&A and fundraising to companies between ₹10 Cr and ₹300 Cr in enterprise value — a segment traditional banks have ignored for decades. ", em: "AI runs the analysis. We run the deal." },
   "AI handles roughly 80% of the analytical work — buyer discovery, document generation, outreach tracking, pattern analysis. That leverage frees our bankers to do what only humans can: the relationship, the judgment, the negotiation. Every mandate gets the rigour that used to be reserved for ₹500 Cr deals.",
   "We are founders, building for founders. We only win when you win. No retainers. No disappearing acts. Skin in the game.",
 ];

@@ -825,11 +825,11 @@ export default function Investors() {
               </div>
               <div className="wstat-row reveal">
                 <div className="wstat">
-                  <div className="wv" data-count-lower="45" data-count-upper="90">
-                    45–90
+                  <div className="wv" data-count="14">
+                    14
                   </div>
                   <div className="wc">
-                    {"days, mandate to close "}
+                    {"weeks, mandate to close"}
                     <span style={{ "opacity": "0.6" }}>
                       (typical)
                     </span>

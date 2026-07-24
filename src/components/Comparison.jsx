@@ -33,9 +33,9 @@ const DONE_DEAL_ITEMS = [
   { label: 'Bank-grade, banker-led', detail: 'outcome' },
   { label: '14 weeks', detail: 'median to close' },
   { label: 'Success fee only', detail: '— no retainer, ever' },
-  { label: '10,427 verified buyers', detail: 'AI-ranked' },
+  { label: '1000+ verified buyers', detail: 'AI-ranked' },
   { label: 'Your banker runs it', detail: '— you approve' },
-  { label: 'Built for ₹12–200 Cr', detail: 'deals' },
+  { label: 'Built for ₹10–300 Cr', detail: 'deals' },
 ];
 
 function ComparisonList({ items, defaultStatus = 'yes' }) {
