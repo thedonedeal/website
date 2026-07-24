@@ -52,7 +52,7 @@ const GET_STARTED_HREF = "https://www.done.deals/get-started";
 const STATS = [
   { target: 35, caption: "Closed transactions — track record, not talk" },
   { target: 400, prefix: "₹", suffix: " Cr+", caption: "In enterprise value transacted" },
-  { target: 1100, suffix: "+", caption: "Verified, structured buyers — not a Rolodex" },
+  { target: 1000, suffix: "+", caption: "Verified, structured buyers — not a Rolodex" },
   { target: 14, caption: "weeks, mandate to close" },
 ];
 

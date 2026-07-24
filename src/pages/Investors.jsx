@@ -846,8 +846,8 @@ export default function Investors() {
                   </div>
                 </div>
                 <div className="wstat">
-                  <div className="wv" data-count="500" data-count-suffix="+">
-                    500+
+                  <div className="wv" data-count="1000" data-count-suffix="+">
+                    1000+
                   </div>
                   <div className="wc">
                     verified investors in the network

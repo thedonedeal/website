@@ -15,7 +15,7 @@ export default function TrackRecord() {
               <span className="tg-glow" style={{ left: '4px', bottom: 0, width: '46px', height: '104px', borderRadius: '15px' }} />
               <span className="tg-dim" style={{ left: '62px', bottom: 0, width: '46px', height: '38px', borderRadius: '13px' }} />
             </div>
-            <div className="tn" data-count="30">35</div>
+            <div className="tn" data-count="35">35</div>
             <div className="tl">Mandates closed across raise &amp; exit</div>
           </div>
           <div className="tcard reveal">
