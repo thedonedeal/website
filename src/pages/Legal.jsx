@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
@@ -8,29 +9,32 @@ import '../styles/legal.css';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
 
+const VALID_TABS = ['investor', 'company', 'privacy'];
+
 export default function Legal() {
   useReveal();
   useParallax();
   useLightwell();
 
-  const VALID_TABS = ['investor', 'company', 'privacy'];
-  const tabFromHash = () => {
-    if (typeof window === 'undefined') return 'investor';
-    const hash = window.location.hash.replace('#', '');
-    return VALID_TABS.includes(hash) ? hash : 'investor';
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [tab, setTab] = useState(tabFromHash);
+  // Start from the SSR default ('investor') so the first client render matches
+  // the prerendered HTML — reading the hash up front would cause a hydration
+  // mismatch that leaves the tabs inert in production. The effect then keeps
+  // the tab in step with the URL hash: it runs on first mount and on every
+  // later hash change, including client-side <Link> navigations and back/fwd.
+  const [tab, setTab] = useState('investor');
 
   useEffect(() => {
-    const onHashChange = () => setTab(tabFromHash());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+    const hash = location.hash.replace('#', '');
+    setTab(VALID_TABS.includes(hash) ? hash : 'investor');
+  }, [location.hash]);
 
+  // Route through the router so location.hash stays the single source of truth
+  // (the effect above then updates the visible tab).
   const selectTab = (next) => {
-    setTab(next);
-    window.history.replaceState(null, '', `#${next}`);
+    navigate(`#${next}`, { replace: true });
   };
 
   return (
