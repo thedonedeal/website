@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
@@ -12,6 +11,7 @@ import { FAQS } from '../data/faqs';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
 import { appUrl } from '../config/app';
+import useUtmSource from '../hooks/useUtmSource';
 
 const DISPLAY_FAQS = ['general', 'founder', 'buyer'].flatMap((cat) =>
   FAQS.filter((faq) => faq.cat === cat).slice(0, 2)
@@ -19,10 +19,7 @@ const DISPLAY_FAQS = ['general', 'founder', 'buyer'].flatMap((cat) =>
 
 export default function Investors() {
 
-  const { pathname, search } = useLocation();
-  const incomingUtmSource = new URLSearchParams(search).get('utm_source');
-  const pageSlug = pathname.replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'home';
-  const utmSource = incomingUtmSource || pageSlug;
+  const utmSource = useUtmSource();
   const buyerOnboardingUrl = `${appUrl('buyer/onboarding')}?utm_source=${encodeURIComponent(utmSource)}`;
   const buyerLoginUrl = `${appUrl('buyer/login')}?utm_source=${encodeURIComponent(utmSource)}`;
 

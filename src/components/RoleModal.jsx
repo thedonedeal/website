@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { appUrl } from '../config/app';
+import useUtmSource from '../hooks/useUtmSource';
 
 const SIGNUP_URL = appUrl('signup');
 
@@ -37,14 +37,11 @@ const ROLE_OPTIONS = [
 
 // "Get started" role modal + the click interception that opens it.
 export default function RoleModal() {
-  const { pathname, search } = useLocation();
   const [open, setOpen] = useState(false);
 
   // If the visitor already arrived with a utm_source (e.g. from LinkedIn), keep it.
   // Otherwise fall back to the page they clicked "Get started" from.
-  const incomingUtmSource = new URLSearchParams(search).get('utm_source');
-  const pageSlug = pathname.replace(/^\/+|\/+$/g, '').replace(/\//g, '-') || 'home';
-  const utmSource = incomingUtmSource || pageSlug;
+  const utmSource = useUtmSource();
   const withUtm = (base) => `${base}?utm_source=${encodeURIComponent(utmSource)}`;
 
   // Lock page scroll while the modal is open.

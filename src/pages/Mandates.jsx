@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
@@ -9,6 +8,7 @@ import '../styles/mandates.css';
 import Seo from '../components/Seo';
 import { ROUTE_META } from '../seo/meta';
 import { appUrl } from '../config/app';
+import useUtmSource from '../hooks/useUtmSource';
 
 import { cdnUrl } from '../config/cdn';
 
@@ -338,8 +338,7 @@ export default function Mandates() {
   useParallax();
   useLightwell();
 
-  const { search } = useLocation();
-  const utmSource = new URLSearchParams(search).get('utm_source') || 'mandate-page';
+  const utmSource = useUtmSource('mandate-page');
   const signupUrl = `${appUrl('signup')}?utm_source=${encodeURIComponent(utmSource)}`;
   const buyerOnboardingUrl = `${appUrl('buyer/onboarding')}?utm_source=${encodeURIComponent(utmSource)}`;
 
