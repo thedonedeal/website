@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { trackEvent } from '../helper/posthogHelper';
 import { POSTHOG_EVENTS } from '../constants/posthogEvents';
+import { onScrollFrame, requestScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Hook to track how far down a page or container the user has scrolled.
@@ -74,22 +75,20 @@ export default function useScrollPercentageTracker(pageName, containerRef) {
       }
     };
 
-    // Scroll fires far more often than the display can paint, and measuring involves
-    // layout reads (scrollHeight/getBoundingClientRect). Batch to one measurement per
-    // animation frame so this doesn't force synchronous reflow on every scroll tick.
-    let ticking = false;
-    let pendingTarget = document;
-    let rafId = null;
+    // Measuring reads layout (scrollHeight/getBoundingClientRect), so it runs in the
+    // shared scroll frame's read phase — once per frame, before any effect's writes.
+    let pendingTarget = null;
+    const unsubscribe = onScrollFrame({
+      read: () => {
+        if (!pendingTarget) return;
+        const target = pendingTarget;
+        pendingTarget = null;
+        measure(target);
+      },
+    });
     const handleScroll = (event) => {
       pendingTarget = event.target;
-      if (!ticking) {
-        ticking = true;
-        rafId = requestAnimationFrame(() => {
-          ticking = false;
-          rafId = null;
-          measure(pendingTarget);
-        });
-      }
+      requestScrollFrame();
     };
 
     // capture: true catches scroll events from any layout wrapper that handles page scrolling
@@ -100,7 +99,7 @@ export default function useScrollPercentageTracker(pageName, containerRef) {
 
     return () => {
       window.removeEventListener('scroll', handleScroll, { capture: true });
-      if (rafId !== null) cancelAnimationFrame(rafId);
+      unsubscribe();
 
       const maxPercent = Math.min(100, Math.round(maxScrollPercentRef.current));
       if (maxPercent <= 0) return;

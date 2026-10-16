@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import IndiaOfficeMap from '../components/IndiaOfficeMap';
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
+import useBakedGlows from '../hooks/useBakedGlows';
 import useLightwell from '../hooks/useLightwell';
 import useHeroAurora from '../hooks/useHeroAurora';
 import useScrollPercentageTracker from '../hooks/useScrollPercentageTracker';
@@ -107,6 +108,7 @@ export default function Contact() {
 
   useReveal();
   useParallax();
+  useBakedGlows();
   useLightwell();
   useHeroAurora(auroraRef, panelRef, 1);
   useScrollPercentageTracker('contact');

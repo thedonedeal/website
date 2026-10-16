@@ -71,7 +71,7 @@ section > .wrap, section > .amb ~ * { position: relative; }
 
 /* ── Sticky nav ──────────────────────────────────────────────── */
 .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; pointer-events: none; background: rgba(236,233,226,0.06); }
-.scroll-progress > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--copper), var(--purple-soft) 55%, var(--purple)); box-shadow: 0 0 12px rgba(92,111,255,0.45); will-change: width; }
+.scroll-progress > i { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--copper), var(--purple-soft) 55%, var(--purple)); box-shadow: 0 0 12px rgba(92,111,255,0.45); will-change: transform; }
 .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px var(--gutter); transition: background .4s var(--ease-out), backdrop-filter .4s, border-color .4s, transform .45s var(--ease-out);
@@ -564,7 +564,7 @@ section > .wrap, section > .amb ~ * { position: relative; }
 .maker-card .mr { font-size: 14px; color: var(--copper-soft); margin-top: 3px; font-weight: 500; }
 .maker-card .mp { font-size: 13.5px; color: var(--bone-dim); margin-top: 6px; line-height: 1.5; }
 .makers-progress { height: 2px; margin: clamp(18px,2.6vh,40px) var(--gutter) clamp(22px,3vh,44px); background: var(--line); border-radius: 999px; overflow: hidden; }
-.makers-progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--purple), var(--copper)); border-radius: 999px; }
+.makers-progress > i { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--purple), var(--copper)); border-radius: 999px; }
 /* Fallback: small screens / reduced motion → normal horizontal swipe, no pin */
 .makers-h.no-pin .makers-sticky { position: static; height: auto; padding-bottom: 20px; }
 .makers-h.no-pin .makers-head { padding-top: 0; }
@@ -626,10 +626,10 @@ section > .wrap, section > .amb ~ * { position: relative; }
 .testi-dots { display: flex; align-items: center; gap: 12px; }
 .testi-dots .td { padding: 0; border: 0; background: none; cursor: pointer;
   width: 46px; height: 4px; border-radius: 999px; background: rgba(236,233,226,0.14); overflow: hidden; }
-.testi-dots .td > i { display: block; height: 100%; width: 0; border-radius: 999px;
+.testi-dots .td > i { display: block; height: 100%; width: 100%; transform: translateX(-100%); border-radius: 999px;
   background: linear-gradient(90deg, var(--copper), var(--copper-soft)); }
-.testi-dots .td.done > i { width: 100%; }
-/* the active dot's fill is driven inline by JS (time-based); no CSS transition so it tracks the timer */
+.testi-dots .td.done > i { transform: none; }
+/* the active dot's fill is driven inline by JS (time-based, via transform); no CSS transition so it tracks the timer */
 .testi-nav { display: flex; gap: 10px; }
 .testi-nav .tnav { width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
   border: 1px solid var(--line-strong); background: transparent; color: var(--bone-dim);

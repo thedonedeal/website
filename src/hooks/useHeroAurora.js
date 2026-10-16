@@ -84,18 +84,18 @@ export default function useHeroAurora(canvasRef, hostRef, mode = 1) {
     let t = 0;
     let raf = null;
     let visible = true;
-    // Cap redraws to ~60fps — rAF fires at the display's native refresh rate (e.g. 120Hz),
-    // and this loop's gradient-heavy canvas work (plus its t increment, which controls
-    // animation speed) would otherwise run twice as fast/heavy on high-refresh screens.
-    const FRAME_INTERVAL = 1000 / 60;
+    // Advance by elapsed time, not frame count, so drift speed and pointer easing are the
+    // same at 60Hz and 165Hz. `step` is measured in 60fps frames (the speeds below were
+    // tuned per 16.67ms frame); clamped so a stalled tab doesn't jump on resume.
     let lastTime = 0;
     const frame = (time) => {
-      if (!visible) { raf = null; return; }
-      if (time - lastTime < FRAME_INTERVAL) { raf = requestAnimationFrame(frame); return; }
+      if (!visible) { raf = null; lastTime = 0; return; }
+      const step = lastTime ? Math.min(time - lastTime, 100) / (1000 / 60) : 1;
       lastTime = time;
-      t += 0.006;
-      px = lerp(px, tx, 0.05);
-      py = lerp(py, ty, 0.05);
+      t += 0.006 * step;
+      const ease = 1 - Math.pow(1 - 0.05, step);
+      px = lerp(px, tx, ease);
+      py = lerp(py, ty, ease);
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
       const cx = W * px;

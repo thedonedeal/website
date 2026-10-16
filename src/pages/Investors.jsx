@@ -3,6 +3,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
+import useBakedGlows from '../hooks/useBakedGlows';
 import useLightwell from '../hooks/useLightwell';
 import useInvestorsViz from '../hooks/useInvestorsViz';
 import '../styles/investors.css';
@@ -50,6 +51,7 @@ export default function Investors() {
 
   useReveal();        // .reveal fades, FAQ accordions
   useParallax();      // ambient .drift shapes
+  useBakedGlows();    // pre-render the .glow blurs once (no per-frame GPU blur)
   useLightwell(); // hero + sections 01-02 are light; sections 03+ are dark
   useInvestorsViz();  // match-viz fountain, manifesto fill, count-ups, card sweep
   useHeroAurora(auroraRef, panelRef, 1);

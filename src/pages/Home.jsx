@@ -17,6 +17,7 @@ import Footer from '../components/Footer';
 
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
+import useBakedGlows from '../hooks/useBakedGlows';
 import useLightwell from '../hooks/useLightwell';
 import useMakersPin from '../hooks/useMakersPin';
 import useProcessScenes from '../hooks/useProcessScenes';
@@ -46,6 +47,7 @@ export default function Home() {
   // Shared scroll behaviours
   useReveal();
   useParallax();
+  useBakedGlows();
   useLightwell();
   useScrollPercentageTracker('home');
 

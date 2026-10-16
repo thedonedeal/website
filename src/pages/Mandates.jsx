@@ -3,6 +3,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
+import useBakedGlows from '../hooks/useBakedGlows';
 import useLightwell from '../hooks/useLightwell';
 import '../styles/mandates.css';
 import Seo from '../components/Seo';
@@ -345,6 +346,7 @@ function FeaturedSlider({ items, signupUrl }) {
 export default function Mandates() {
   useReveal();
   useParallax();
+  useBakedGlows();
   useLightwell();
   useScrollPercentageTracker('mandates');
 

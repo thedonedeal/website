@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { onScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Deal makers: a section pinned for the duration of a vertical scroll budget,
@@ -20,17 +21,26 @@ export default function useMakersPin() {
     let maxX = 0;
     let pinHeight = 0;
 
-    const tick = () => {
-      if (sec.classList.contains('no-pin')) return;
+    const read = () => {
+      if (sec.classList.contains('no-pin')) return null;
       const rect = sec.getBoundingClientRect();
       const total = sec.offsetHeight - pinHeight;
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
-      const progress = total > 0 ? scrolled / total : 0;
-      track.style.transform = 'translate3d(' + (-progress * maxX).toFixed(1) + 'px,0,0)';
-      if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
+      return total > 0 ? scrolled / total : 0;
     };
+    let lastProgress = null;
+    const write = (progress) => {
+      // Outside the pinned range progress sits at 0 or 1 — nothing to update.
+      if (progress === null || progress === lastProgress) return;
+      lastProgress = progress;
+      track.style.transform = 'translate3d(' + (-progress * maxX).toFixed(1) + 'px,0,0)';
+      // scaleX, not width: a width change re-runs layout on every scroll frame.
+      if (bar) bar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
+    };
+    const tick = () => write(read());
 
     const measure = () => {
+      lastProgress = null; // maxX may have changed — always re-apply
       sec.classList.remove('no-pin');
       if (small.matches || reduceMo.matches) {
         sec.classList.add('no-pin');
@@ -48,9 +58,7 @@ export default function useMakersPin() {
       tick();
     };
 
-    let rafQueued = false;
-    const onScroll = () => { if (!rafQueued) { window.requestAnimationFrame(() => { tick(); rafQueued = false; }); rafQueued = true; } };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    const unsubscribe = onScrollFrame({ read, write });
     window.addEventListener('resize', measure);
     window.addEventListener('load', measure);
     measure();
@@ -164,7 +172,7 @@ export default function useMakersPin() {
     window.addEventListener('resize', syncAuto);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      unsubscribe();
       window.removeEventListener('resize', measure);
       window.removeEventListener('load', measure);
       window.removeEventListener('resize', syncAuto);

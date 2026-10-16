@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { onScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Investors-page visuals, ported 1:1 from the original build:
@@ -116,17 +117,15 @@ export default function useInvestorsViz() {
         drawBall(wq.x * W, wq.y * H, gr, COP_HI, 1, 0.5 + 0.5 * Math.sin(t * 1.7), 1, false);
         drawBall(bx, by, br, PUR, 1, 0.5 + 0.5 * Math.sin(t * 1.7 + 1), 1, true);
       };
-      // Cap redraws to ~60fps — rAF fires at the display's native refresh rate (e.g. 120Hz),
-      // and this loop's gradient-heavy canvas work (plus its t increment, which controls
-      // animation speed) would otherwise run twice as fast/heavy on high-refresh screens.
-      const FRAME_INTERVAL = 1000 / 60;
+      // Advance by elapsed time (in 60fps frames, which the speeds were tuned for) so the
+      // fountain runs at the same speed on any refresh rate without throttling redraws.
       let lastTime = 0;
       const frame = (time) => {
         if (!alive) return;
-        if (!visible) { rafId = null; return; }
-        if (time - lastTime < FRAME_INTERVAL) { rafId = requestAnimationFrame(frame); return; }
+        if (!visible) { rafId = null; lastTime = 0; return; }
+        const step = lastTime ? Math.min(time - lastTime, 100) / (1000 / 60) : 1;
         lastTime = time;
-        t += reduce ? 0 : 0.012; render();
+        t += reduce ? 0 : 0.012 * step; render();
         if (!reduce) rafId = requestAnimationFrame(frame);
       };
       window.addEventListener('resize', build);
@@ -149,26 +148,32 @@ export default function useInvestorsViz() {
       const section = document.querySelector('.manifesto');
       const words = [].slice.call(document.querySelectorAll('.manifesto .mf-w'));
       if (!section || !words.length || reduce) return;
-      const n = words.length; let q = false;
-      const update = () => {
+      const n = words.length;
+      const read = () => {
         const vh = window.innerHeight;
         const rect = section.getBoundingClientRect();
         const start = vh * 0.80, end = vh * 0.30;
         const anchor = rect.top + rect.height * 0.5;
-        let p = (start - anchor) / (start - end);
-        p = Math.max(0, Math.min(1, p));
+        const p = (start - anchor) / (start - end);
+        return Math.max(0, Math.min(1, p));
+      };
+      let lastP = -1;
+      const write = (p) => {
+        // Away from the manifesto p is pinned at 0 or 1 — don't rewrite every word.
+        if (p === lastP) return;
+        lastP = p;
         const prog = p * n;
         for (let i = 0; i < n; i++) {
           const f = Math.max(0, Math.min(1, prog - i));
           words[i].style.setProperty('--f', (f * 100).toFixed(1) + '%');
         }
       };
-      const onScroll = () => { if (!q) { q = true; requestAnimationFrame(() => { update(); q = false; }); } };
-      window.addEventListener('scroll', onScroll, { passive: true });
+      const update = () => write(read());
+      const unsubscribe = onScrollFrame({ read, write });
       window.addEventListener('resize', update);
       window.addEventListener('load', update);
       update();
-      cleanups.push(() => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', update); window.removeEventListener('load', update); });
+      cleanups.push(() => { unsubscribe(); window.removeEventListener('resize', update); window.removeEventListener('load', update); });
     })();
 
     /* ── Why-Done-Deal stat count-ups ── */
@@ -195,9 +200,10 @@ export default function useInvestorsViz() {
       els.forEach((el) => render(el, reduce ? 1 : 0));
       if (reduce) return;
       let done = false;
+      let unsubscribe = () => {};
       const run = () => {
         if (done) return; done = true;
-        window.removeEventListener('scroll', check);
+        unsubscribe();
         const dur = 1500; let start = null;
         const step = (ts) => {
           if (start === null) start = ts;
@@ -207,14 +213,14 @@ export default function useInvestorsViz() {
         };
         requestAnimationFrame(step);
       };
-      const check = () => {
+      const inView = () => {
         const r = row.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        if (r.top < vh * 0.85 && r.bottom > 0) run();
+        return r.top < vh * 0.85 && r.bottom > 0;
       };
-      window.addEventListener('scroll', check, { passive: true });
-      check();
-      cleanups.push(() => window.removeEventListener('scroll', check));
+      unsubscribe = onScrollFrame({ read: inView, write: (seen) => { if (seen) run(); } });
+      if (inView()) run();
+      cleanups.push(() => unsubscribe());
     })();
 
     /* ── "what you get" icon draw-in ── */
@@ -224,14 +230,16 @@ export default function useInvestorsViz() {
       ul.querySelectorAll('.ic path, .ic polyline, .ic line, .ic rect, .ic circle')
         .forEach((el) => el.setAttribute('pathLength', '100'));
       if (reduce) return;
-      const check = () => {
+      const inView = () => {
         const r = ul.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        if (r.top < vh * 0.85 && r.bottom > 0) { ul.classList.add('go'); window.removeEventListener('scroll', check); }
+        return r.top < vh * 0.85 && r.bottom > 0;
       };
-      window.addEventListener('scroll', check, { passive: true });
-      check();
-      cleanups.push(() => window.removeEventListener('scroll', check));
+      let unsubscribe = () => {};
+      const go = () => { ul.classList.add('go'); unsubscribe(); };
+      unsubscribe = onScrollFrame({ read: inView, write: (seen) => { if (seen) go(); } });
+      if (inView()) go();
+      cleanups.push(() => unsubscribe());
     })();
 
     /* ── why-grid / serve-grid staggered card sweep ── */

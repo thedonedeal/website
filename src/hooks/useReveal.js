@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { trackEvent } from '../helper/posthogHelper';
 import { POSTHOG_EVENTS } from '../constants/posthogEvents';
+import { onScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Scroll-driven content behaviours shared across pages:
@@ -41,19 +42,18 @@ export default function useReveal() {
     /* ── scroll progress bar ── */
     const bar = document.getElementById('scroll-progress-bar');
     if (bar) {
-      let q = false;
-      const update = () => {
-        const doc = document.documentElement;
-        const max = doc.scrollHeight - window.innerHeight;
-        const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        bar.style.width = (p * 100).toFixed(2) + '%';
+      const read = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
       };
-      const onScroll = () => { if (!q) { q = true; requestAnimationFrame(() => { update(); q = false; }); } };
-      window.addEventListener('scroll', onScroll, { passive: true });
+      // scaleX, not width: a width change re-runs layout on every scroll frame.
+      const write = (p) => { bar.style.transform = 'scaleX(' + p.toFixed(4) + ')'; };
+      const update = () => write(read());
+      const unsubscribe = onScrollFrame({ read, write });
       window.addEventListener('resize', update);
       window.addEventListener('load', update);
       update();
-      cleanups.push(() => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', update); window.removeEventListener('load', update); });
+      cleanups.push(() => { unsubscribe(); window.removeEventListener('resize', update); window.removeEventListener('load', update); });
     }
 
     /* ── FAQ accordions ── */
@@ -99,9 +99,10 @@ export default function useReveal() {
         els.forEach((el) => render(el, reduce ? 1 : 0));
         if (!reduce) {
           let done = false;
+          let unsubscribe = () => {};
           const run = () => {
             if (done) return; done = true;
-            window.removeEventListener('scroll', check);
+            unsubscribe();
             const dur = 1600; let start = null;
             const step = (ts) => {
               if (start === null) start = ts;
@@ -111,14 +112,14 @@ export default function useReveal() {
             };
             requestAnimationFrame(step);
           };
-          const check = () => {
+          const inView = () => {
             const r = grid.getBoundingClientRect();
             const vh = window.innerHeight || document.documentElement.clientHeight;
-            if (r.top < vh * 0.85 && r.bottom > 0) run();
+            return r.top < vh * 0.85 && r.bottom > 0;
           };
-          window.addEventListener('scroll', check, { passive: true });
-          check();
-          cleanups.push(() => window.removeEventListener('scroll', check));
+          unsubscribe = onScrollFrame({ read: inView, write: (seen) => { if (seen) run(); } });
+          if (inView()) run();
+          cleanups.push(() => unsubscribe());
         }
       }
     }
@@ -138,23 +139,28 @@ export default function useReveal() {
       const slides = [].slice.call(ttrack.children);
       const n = slides.length;
       const DWELL = 6000;
-      let idx = 0, paused = false, elapsed = 0, lastTs = 0, rafId = null, alive = true;
+      let idx = 0, paused = false, elapsed = 0, lastTs = 0, rafId = null, alive = true, visible = true;
       const fillOf = (i) => dots[i].querySelector('i');
+      // Slide the fill in with a transform rather than growing its width, so the
+      // per-frame timer update never triggers layout.
+      const setFill = (i, frac) => { fillOf(i).style.transform = 'translateX(' + ((frac - 1) * 100).toFixed(2) + '%)'; };
       const show = (i) => {
         idx = ((i % n) + n) % n;
         ttrack.style.transform = 'translate3d(' + (-idx * 100) + '%,0,0)';
-        dots.forEach((d, k) => { d.classList.toggle('done', k < idx); if (k !== idx) fillOf(k).style.width = (k < idx ? '100%' : '0%'); });
-        fillOf(idx).style.width = '0%';
+        dots.forEach((d, k) => { d.classList.toggle('done', k < idx); if (k !== idx) setFill(k, k < idx ? 1 : 0); });
+        setFill(idx, 0);
       };
       const goTo = (i) => { elapsed = 0; lastTs = 0; show(i); };
       const loop = (ts) => {
         if (!alive) return;
+        // Off screen: stop the loop (and the dwell timer) until the carousel is back.
+        if (!visible) { rafId = null; lastTs = 0; return; }
         if (!lastTs) lastTs = ts;
         const dt = ts - lastTs; lastTs = ts;
         if (!paused) {
           elapsed += dt;
           const frac = Math.min(1, elapsed / DWELL);
-          fillOf(idx).style.width = (frac * 100) + '%';
+          setFill(idx, frac);
           if (frac >= 1) { elapsed = 0; show(idx + 1); }
         }
         rafId = requestAnimationFrame(loop);
@@ -170,8 +176,17 @@ export default function useReveal() {
       carousel.addEventListener('pointerleave', onLeave);
       show(0);
       if (!reduce) rafId = requestAnimationFrame(loop);
+      let tio = null;
+      if (!reduce && 'IntersectionObserver' in window) {
+        tio = new IntersectionObserver((entries) => {
+          visible = entries[0].isIntersecting;
+          if (visible && rafId === null && alive) rafId = requestAnimationFrame(loop);
+        }, { threshold: 0 });
+        tio.observe(carousel);
+      }
       cleanups.push(() => {
         alive = false; if (rafId) cancelAnimationFrame(rafId);
+        if (tio) tio.disconnect();
         dotHandlers.forEach(([d, h]) => d.removeEventListener('click', h));
         if (prev) prev.removeEventListener('click', onPrev);
         if (next) next.removeEventListener('click', onNext);
