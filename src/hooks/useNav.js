@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { onScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Sticky nav background on scroll, auto-hide on scroll-down / reveal on
@@ -9,27 +10,22 @@ export default function useNav() {
   useEffect(() => {
     const nav = document.getElementById('topnav') || document.querySelector('.topnav');
 
-    // sticky background
-    const onScroll = () => {
-      if (!nav) return;
-      if (window.scrollY > 24) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // auto-hide
+    // sticky background + auto-hide. scrollY forces layout, so it's read in the
+    // shared scroll frame's read phase, ahead of every effect's style writes.
     let lastY = window.scrollY, acc = 0;
-    const onHide = () => {
+    const write = (y) => {
       if (!nav) return;
-      const y = window.scrollY, dy = y - lastY;
+      if (y > 24) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+      const dy = y - lastY;
       lastY = y;
       if (y < 140) { nav.classList.remove('nav-hide'); acc = 0; return; }
       acc = ((dy > 0) === (acc > 0)) ? acc + dy : dy;
       if (acc > 26) nav.classList.add('nav-hide');
       else if (acc < -26) nav.classList.remove('nav-hide');
     };
-    window.addEventListener('scroll', onHide, { passive: true });
+    const unsubscribe = onScrollFrame({ read: () => window.scrollY, write });
+    write(window.scrollY);
 
     // nav + strip heights
     const setVars = () => {
@@ -44,8 +40,7 @@ export default function useNav() {
     window.addEventListener('load', setVars);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('scroll', onHide);
+      unsubscribe();
       window.removeEventListener('resize', setVars);
       window.removeEventListener('load', setVars);
     };

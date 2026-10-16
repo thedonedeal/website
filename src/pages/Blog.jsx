@@ -3,6 +3,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import useReveal from '../hooks/useReveal';
 import useParallax from '../hooks/useParallax';
+import useBakedGlows from '../hooks/useBakedGlows';
 import useLightwell from '../hooks/useLightwell';
 import useScrollPercentageTracker from '../hooks/useScrollPercentageTracker';
 import { POSTS } from '../data/posts';
@@ -84,6 +85,7 @@ const FILTERS = [
 export default function Blog() {
   useReveal();
   useParallax();
+  useBakedGlows();
   useLightwell();
   useScrollPercentageTracker('blog');
 

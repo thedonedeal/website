@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { onScrollFrame } from '../lib/scrollFrame';
 
 /**
  * Guided process (proc3): as the pinned section scrolls, the active step card
@@ -53,10 +54,10 @@ export default function useProcessScenes() {
     // pre-measured heights (active card expanded, the rest collapsed), so the
     // layout is the SETTLED one — the stack shift and the card open animate
     // together. Smoothed by the transform transition in CSS.
-    const centerActive = (i) => {
+    const centerActive = (i, viewH) => {
       if (!grid || !isMobile()) { wrap.style.transform = ''; return; }
       if (!cards[i] || !heights.length) return;
-      const viewH = grid.clientHeight;
+      if (viewH === undefined) viewH = grid.clientHeight;
       const tops = new Array(cards.length);
       let y = 0;
       for (let k = 0; k < cards.length; k++) {
@@ -83,11 +84,13 @@ export default function useProcessScenes() {
     // can't oscillate it across a boundary). Exactly one card is open (--o:1),
     // all others closed (--o:0) — never a half-open or two-open state — and the
     // open/close animates via the CSS transition on the --o-driven properties.
-    const trackMobile = () => {
+    // Split into a layout-reading half (mobileTarget → what should change, or null)
+    // and a writing half (applyMobile) so it can run in the shared scroll frame.
+    const mobileTarget = () => {
       const pin = document.getElementById('proc3-pin');
-      if (!pin || !grid) return;
-      if (!isMobile()) { wrap.style.transform = ''; return; }
-      if (!heights.length) return;
+      if (!pin || !grid) return null;
+      if (!isMobile()) return { desktop: true };
+      if (!heights.length) return null;
       const n = cards.length;
       const viewH = grid.clientHeight;
       const total = pin.offsetHeight - viewH;
@@ -105,12 +108,16 @@ export default function useProcessScenes() {
       else if (raw < activeM - H) idx = Math.floor(raw);
       if (idx < 0) idx = 0;
       if (idx > n - 1) idx = n - 1;
-      if (idx === activeM) return;
-
-      activeM = idx;
-      cards.forEach((c, k) => c.style.setProperty('--o', k === idx ? '1' : '0'));
-      centerActive(idx);
+      if (idx === activeM) return null;
+      return { idx, viewH };
     };
+    const applyMobile = (m) => {
+      if (m.desktop) { if (wrap.style.transform) wrap.style.transform = ''; return; }
+      activeM = m.idx;
+      cards.forEach((c, k) => c.style.setProperty('--o', k === m.idx ? '1' : '0'));
+      centerActive(m.idx, m.viewH);
+    };
+    const trackMobile = () => { const m = mobileTarget(); if (m) applyMobile(m); };
 
     // DESKTOP: discrete active-card toggle, driven by track() below. Mobile never
     // calls this (it uses trackMobile); the scenes/captions it updates live in
@@ -127,14 +134,14 @@ export default function useProcessScenes() {
       wrap.style.transform = ''; // desktop never translates the stack
     };
 
-    const track = () => {
+    const desktopTarget = () => {
       // DESKTOP only: map scroll progress across the 300vh pin onto the active
       // step. On mobile the address bar resizes the viewport mid-scroll, which
       // makes this scroll math jitter — so phones use the IntersectionObserver
       // below (immune to that resize) instead.
-      if (window.innerWidth < 901) return;
+      if (window.innerWidth < 901) return null;
       const pin = document.getElementById('proc3-pin');
-      if (!pin) return;
+      if (!pin) return null;
       const n = cards.length;
       const vh = window.innerHeight;
       const total = pin.offsetHeight - vh;
@@ -157,15 +164,20 @@ export default function useProcessScenes() {
       else if (raw < active - H) idx = Math.floor(raw);
       if (idx < 0) idx = 0;
       if (idx > n - 1) idx = n - 1;
-      setActive(idx);
+      return idx;
     };
+    const track = () => { const i = desktopTarget(); if (i !== null) setActive(i); };
 
-    let q = false;
-    // Desktop advances the active card in track(); mobile drives the continuous
-    // scroll-linked accordion in trackMobile(). Each self-guards by breakpoint,
-    // so only one does work per frame.
-    const onScroll = () => { if (!q) { q = true; requestAnimationFrame(() => { track(); trackMobile(); q = false; }); } };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Desktop advances the active card (desktopTarget → setActive); mobile drives
+    // the scroll-linked accordion (mobileTarget → applyMobile). Each self-guards by
+    // breakpoint, so only one does work per frame.
+    const unsubscribe = onScrollFrame({
+      read: () => ({ d: desktopTarget(), m: mobileTarget() }),
+      write: ({ d, m }) => {
+        if (d !== null) setActive(d);
+        if (m) applyMobile(m);
+      },
+    });
     track();
     trackMobile();
 
@@ -251,7 +263,7 @@ export default function useProcessScenes() {
     });
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      unsubscribe();
       window.removeEventListener('resize', fit);
       window.removeEventListener('load', fit);
       clearTimeout(t);

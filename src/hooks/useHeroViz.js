@@ -125,6 +125,11 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
     let elapsed = 0;
     let lastTs = 0;
     let paused = false;
+    // Slide the fill up with a transform rather than growing its height, so the
+    // per-frame dwell timer never triggers layout.
+    const setFill = (f, frac) => {
+      if (f) f.style.transform = `translateY(${((1 - frac) * 100).toFixed(2)}%)`;
+    };
 
     function setMode(m) {
       mode = ((m % 4) + 4) % 4;
@@ -135,9 +140,7 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
         b.classList.toggle('vshow', active);
         b.setAttribute('aria-pressed', String(active));
       });
-      fills.forEach((f, k) => {
-        if (f) f.style.height = k < mode ? '100%' : '0%';
-      });
+      fills.forEach((f, k) => setFill(f, k < mode ? 1 : 0));
     }
 
     const onCardClick = (e) => {
@@ -348,38 +351,49 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
       }
     }
 
-    let raf;
+    let raf = null;
+    let visible = true;
+    // The rates below were tuned per 60fps frame. Scale them by real elapsed time so the
+    // threads move at the same speed on a 60Hz and a 165Hz display.
+    const ease = (rate, step) => 1 - Math.pow(1 - rate, step);
     function frame(ts) {
-      t += reduce ? 0 : 0.012;
+      if (!visible) { raf = null; lastTs = 0; return; }
       if (!lastTs) lastTs = ts;
       const dt = Math.min(ts - lastTs, 80);
       lastTs = ts;
+      const step = dt / (1000 / 60);
+      t += reduce ? 0 : 0.012 * step;
       if (!reduce && !paused) {
         elapsed += dt;
         if (elapsed >= DWELL) setMode(mode + 1);
-        else if (fills[mode]) fills[mode].style.height = `${(elapsed / DWELL) * 100}%`;
+        else setFill(fills[mode], elapsed / DWELL);
       }
-      sx += (mx - sx) * 0.14;
-      sy += (my - sy) * 0.14;
-      hover += ((mx > -1e3 ? 1 : 0) - hover) * 0.1;
-      doneA += ((mode === 3 ? 1 : 0) - doneA) * 0.08;
+      const kPtr = ease(0.14, step);
+      const kFade = ease(0.1, step);
+      const kNode = ease(0.08, step);
+      const kGeo = ease(0.07, step);
+      const kAlpha = ease(0.09, step);
+      sx += (mx - sx) * kPtr;
+      sy += (my - sy) * kPtr;
+      hover += ((mx > -1e3 ? 1 : 0) - hover) * kFade;
+      doneA += ((mode === 3 ? 1 : 0) - doneA) * kNode;
 
       for (let i = 0; i < N; i++) {
         const tgt = geo(mode, i, N);
         const p = cur[i];
-        for (let k = 0; k < KEYS.length; k++) p[KEYS[k]] += (tgt[KEYS[k]] - p[KEYS[k]]) * 0.07;
-        va[i] += (visFor(mode, i) - va[i]) * 0.1;
+        for (let k = 0; k < KEYS.length; k++) p[KEYS[k]] += (tgt[KEYS[k]] - p[KEYS[k]]) * kGeo;
+        va[i] += (visFor(mode, i) - va[i]) * kFade;
       }
       const et = enodesFor(mode);
       for (let i = 0; i < EN; i++) {
         const target = et[i] || { x: enodes[i].x, y: enodes[i].y, r: 0, blue: enodes[i].blue, ring: 0 };
         const want = et[i] ? 1 : 0;
         const e = enodes[i];
-        e.x += (target.x - e.x) * 0.08;
-        e.y += (target.y - e.y) * 0.08;
-        e.r += (target.r - e.r) * 0.08;
-        e.a += (want - e.a) * 0.09;
-        e.blue += ((target.blue != null ? target.blue : e.blue) - e.blue) * 0.08;
+        e.x += (target.x - e.x) * kNode;
+        e.y += (target.y - e.y) * kNode;
+        e.r += (target.r - e.r) * kNode;
+        e.a += (want - e.a) * kAlpha;
+        e.blue += ((target.blue != null ? target.blue : e.blue) - e.blue) * kNode;
         e.ring = target.ring || 0;
       }
 
@@ -392,9 +406,20 @@ export default function useHeroViz(hostRef, canvasRef, cardsWrapRef) {
     const t1 = setTimeout(resize, 350);
     window.addEventListener('load', resize);
     raf = requestAnimationFrame(frame);
+    // Only keep drawing while the viz is on screen — it's ~150 gradient fills per frame
+    // and would otherwise compete with scrolling for the main thread down the whole page.
+    let io = null;
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible && raf === null) raf = requestAnimationFrame(frame);
+      }, { threshold: 0 });
+      io.observe(host);
+    }
 
     return () => {
       if (raf) cancelAnimationFrame(raf);
+      if (io) io.disconnect();
       clearTimeout(t1);
       if (cardsWrap) cardsWrap.removeEventListener('click', onCardClick);
       host.removeEventListener('pointerleave', onLeave);
