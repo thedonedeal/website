@@ -7,7 +7,7 @@ const DEALS = [
     name: 'WLDD × ScoopWhoop',
     desc: 'Studio meets India’s biggest content engine.',
     image: cdnUrl('wldd-scoop.png'),
-    slug: 'wldd-x-scoopwhoop',
+    slug: 'wldd-x-scoopwhoop-is-a-done-deal',
   },
   {
     tag: 'Consumer · Acquisition',
@@ -28,7 +28,7 @@ const DEALS = [
     name: 'Niyogin x ORBO',
     desc: 'An Al powered solution for BFSI sector meets a listed Fintech. A done deal.',
     image: cdnUrl('niyogen-orbo.jpeg'),
-    slug: 'superscan-orbo-x-niyogin'
+    slug: 'superscan-by-orbo-ai-x-niyogin-is-a-done-deal'
   },
   {
     tag: 'Healthcare · Funding',
@@ -42,7 +42,7 @@ const DEALS = [
     name: 'Collective Artists Network × Terribly Tiny Tales',
     desc: 'Short form story telling platform meets india largest creator platform. A Done Deal',
     image: cdnUrl('collective-tiny-tales.jpeg'),
-    slug: 'ttt-x-collective-artists-network'
+    slug: 'terribly-tiny-tales-x-collective-artists-network-is-a-done-deal'
   },
 ];
 
